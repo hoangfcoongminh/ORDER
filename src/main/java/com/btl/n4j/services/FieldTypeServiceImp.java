@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class FieldTypeImp implements FieldTypeService {
+public class FieldTypeServiceImp implements FieldTypeService {
     @Autowired
     private FieldTypeRepository fieldTypeRepository;
 

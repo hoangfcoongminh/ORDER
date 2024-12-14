@@ -31,16 +31,28 @@ public class FieldServiceImp implements FieldService{
 
     @Override
     public Field findByID(Integer id) {
-        return null;
+        return this.fieldRepository.findById(id).get();
     }
 
     @Override
     public Boolean update(Field field) {
-        return null;
+        try {
+            this.fieldRepository.save(field);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
     public Boolean delete(Integer id) {
-        return null;
+        try {
+            this.fieldRepository.delete(findByID(id));
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

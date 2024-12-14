@@ -64,11 +64,19 @@ public class FieldController {
 
         Field field = this.fieldService.findByID(fieldId);
         model.addAttribute("field", field);
+
+        List<FieldType> fieldTypeList = this.fieldTypeService.getAll();
+        model.addAttribute("fieldTypeList", fieldTypeList);
+
         return "admin/field/edit";
     }
 
-    @PostMapping("/edit-field")
-    public String update(@ModelAttribute("field") Field field) {
+    @PostMapping("/edit-field/{fieldId}")
+    public String update(@ModelAttribute("field") Field field, @RequestParam("fileImage") MultipartFile file) {
+
+        this.storageService.store(file);
+        String imageName = file.getOriginalFilename();
+        field.setFieldImage(imageName);
 
         if (this.fieldService.update(field)) {
             return "redirect:/admin/field";

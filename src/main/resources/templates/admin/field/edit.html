@@ -47,7 +47,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Field Image:</label>
                                     <input type="file" name="fileImage" onchange="loadFile(event)">
-                                    <img id="outputImg">
+                                    <img style="margin-top: 20px;" th:src="@{'/assets/upload/' + ${field.fieldImage}}" id="outputImg" width="200">
                                 </div>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                     <!-- /.box-body -->
 
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-primary">Thêm mới</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </form>
             </div>
@@ -102,3 +102,12 @@
 <div th:replace="admin/layout/tag_script :: script"></div>
 </body>
 </html>
+
+<script>
+    var loadFile = function (event) {
+        var image = document.getElementById("outputImg");
+        image.src = URL.createObjectURL(event.target.files[0]);
+        image.width = 200;
+        image.style.marginTop = "20px";
+    }
+</script>

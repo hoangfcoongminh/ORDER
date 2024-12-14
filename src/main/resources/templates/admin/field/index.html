@@ -83,14 +83,14 @@
                                     </thead>
                                     <tbody>
                                         <tr role="row" class="even" th:each="field : ${fieldList}">
-                                            <td class="sorting_1" th:text="${field.fieldId}"></td>
+                                            <td class="sorting_1" th:text="${field.fieldId}" style="font-weight: bold;"></td>
                                             <td th:text="${field.fieldName}"></td>
                                             <td>
                                                 <img th:src="@{'/assets/upload/' + ${field.fieldImage}}" width="200">
                                             </td>
                                             <td th:text="${field.status}"></td>
                                             <td th:text="${field.address}"></td>
-                                            <td th:text="${field.fieldType.typeName}"></td>
+                                            <td th:text="${field.fieldType.typeName}" style="font-weight: bold;"></td>
                                             <td>
                                                 <a th:href="@{/admin/edit-field/{fieldId}(fieldId=${field.fieldId})}" class="btn btn-primary">Edit</a>
                                                 <a th:href="@{/admin/delete-field/{fieldId}(fieldId=${field.fieldId})}" class="btn btn-danger" onclick="return confirm('Bạn chắc chắn chứ?')">Delete</a>

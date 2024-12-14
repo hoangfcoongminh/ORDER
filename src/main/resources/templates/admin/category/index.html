@@ -71,7 +71,7 @@
                                     </thead>
                                     <tbody>
                                         <tr role="row" class="even" th:each="category : ${categoryList}">
-                                            <td class="sorting_1" th:text="${category.categoryId}"></td>
+                                            <td class="sorting_1" th:text="${category.categoryId}" style="font-weight: bold;"></td>
                                             <td th:text="${category.categoryName}"></td>
                                             <td th:text="${category.detail}"></td>
                                             <td>
