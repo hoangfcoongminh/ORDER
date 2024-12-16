@@ -14,4 +14,8 @@ public interface FieldService {
     Boolean update(Field field);
 
     Boolean delete(Integer id);
+
+    List<Field> searchField(String keyword);
+
+    List<Field> findByFieldTypeId(Integer fieldTypeId);
 }

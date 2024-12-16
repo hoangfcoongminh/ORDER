@@ -72,11 +72,20 @@ public class FieldController {
     }
 
     @PostMapping("/edit-field/{fieldId}")
-    public String update(@ModelAttribute("field") Field field, @RequestParam("fileImage") MultipartFile file) {
+    public String update(@ModelAttribute("field") Field field, @RequestParam(value = "fileImage", required = false) MultipartFile file) {
 
-        this.storageService.store(file);
-        String imageName = file.getOriginalFilename();
-        field.setFieldImage(imageName);
+        try {
+            if (file != null && !file.isEmpty()) {
+                this.storageService.store(file);
+                String imageName = file.getOriginalFilename();
+                field.setFieldImage(imageName);
+            } else {
+                Field oldField = this.fieldService.findByID(field.getFieldId());
+                field.setFieldImage(oldField.getFieldImage());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         if (this.fieldService.update(field)) {
             return "redirect:/admin/field";

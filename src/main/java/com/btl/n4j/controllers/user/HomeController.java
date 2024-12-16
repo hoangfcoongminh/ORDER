@@ -1,8 +1,13 @@
 package com.btl.n4j.controllers.user;
 
+import com.btl.n4j.models.Category;
 import com.btl.n4j.models.Field;
+import com.btl.n4j.models.FieldType;
+import com.btl.n4j.services.CategoryService;
 import com.btl.n4j.services.FieldService;
+import com.btl.n4j.services.FieldTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,18 +17,61 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
+@RequestMapping("")
 public class HomeController {
 
     @Autowired
     private FieldService fieldService;
 
-    @RequestMapping("")
+    @Autowired
+    private FieldTypeService fieldTypeService;
+
+    @GetMapping()
     public String index(Model model) {
+
+        List<FieldType> fieldTypeList = this.fieldTypeService.getAll();
+        model.addAttribute("fieldTypeList", fieldTypeList);
+
+        return "index";
+    }
+
+    @GetMapping("/search")
+    public String search(Model model, @Param("keyword") String keyword) {
+
+        if(keyword != null ) {
+            List<FieldType> fieldTypeList = this.fieldTypeService.getAll();
+            model.addAttribute("fieldTypeList", fieldTypeList);
+
+            List<Field> fieldList = this.fieldService.searchField(keyword);
+            model.addAttribute("fieldList", fieldList);
+
+            return "search";
+        }
+        return "index";
+    }
+
+    @GetMapping("/fieldtype/{fieldTypedId}")
+    public String fieldtype(Model model, @PathVariable("fieldTypedId") Integer fieldTypedId) {
+
+        List<FieldType> fieldTypeList = this.fieldTypeService.getAll();
+        model.addAttribute("fieldTypeList", fieldTypeList);
+
+        List<Field> fieldList = this.fieldService.findByFieldTypeId(fieldTypedId);
+        model.addAttribute("fieldList", fieldList);
+
+        return "search";
+    }
+
+    @GetMapping("/field")
+    public String field(Model model) {
 
         List<Field> fieldList = this.fieldService.getAll();
         model.addAttribute("fieldList", fieldList);
 
-        return "index";
+        List<FieldType> fieldTypeList = this.fieldTypeService.getAll();
+        model.addAttribute("fieldTypeList", fieldTypeList);
+
+        return "field";
     }
 
     @GetMapping("/detail-field/{fieldId}")
@@ -32,6 +80,9 @@ public class HomeController {
         Field field = this.fieldService.findByID(fieldId);
         model.addAttribute("field", field);
 
-        return "fielddetail";
+        List<FieldType> fieldTypeList = this.fieldTypeService.getAll();
+        model.addAttribute("fieldTypeList", fieldTypeList);
+
+        return "detail";
     }
 }

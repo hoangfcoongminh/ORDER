@@ -2,7 +2,39 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="layout/tag_head :: head"></head>
+<style>
+    .menu-bar > li {
+            position: relative;
+        }
+    .sub-menu {
+            display: none;
+            position: absolute;
+            min-width: 180px;
+            top: 51px;
+            left: 40px;
+        }
+        .sub-menu > li {
+            list-style: none;
+            height: 50px;
+            width: 180px;
+            height: 50px;
+            line-height: 50px;
 
+        }
+        .sub-menu > li:hover {
+
+            background-color: rgb(5, 131, 45);
+        }
+        .sub-menu >li:hover a {
+            color: white;
+        }
+        .sub-menu > li > a{
+            text-decoration: none;
+        }
+        .hover-sub-menu:hover > .sub-menu {
+            display: block;
+        }
+</style>
 <body>
 <div class="page-wrapper">
     <!-- Begin Header-->
@@ -10,56 +42,9 @@
     <!-- End Header -->
 
     <main class="main">
-        <div class="intro-slider-container mb-5">
-            <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl"
-                 data-owl-options='{
-                            "dots": true,
-                            "nav": false,
-                            "responsive": {
-                                "1200": {
-                                    "nav": true,
-                                    "dots": false
-                                }
-                            }
-                        }'>
-                <div class="intro-slide"
-                     style="background-image: url(assets/front-end/images/banner1.jpg);">
-                    <div class="container intro-content">
-                        <div class="row justify-content-end">
-                            <div class="col-auto col-sm-7 col-md-6 col-lg-5">
-                                <h3 class="intro-subtitle text-third" style="color: white; -webkit-text-stroke: 1px blue;
-                                                                        font-weight: bold;font-size: 24px;">
-                                    Hệ thống sân bóng N4J
-                                </h3>
-                                <!-- End .h3 intro-subtitle -->
-                                <h1 class="intro-title text-white">Uy tín</h1>
-                                <h1 class="intro-title text-white">Chất lượng</h1><!-- End .intro-title -->
-                            </div><!-- End .col-lg-11 offset-lg-1 -->
-                        </div><!-- End .row -->
-                    </div><!-- End .intro-content -->
-                </div><!-- End .intro-slide -->
-
-                <div class="intro-slide"
-                     style="background-image: url(assets/front-end/images/banner2.jpg);">
-                    <div class="container intro-content">
-                        <div class="row justify-content-end">
-                            <div class="col-auto col-sm-7 col-md-6 col-lg-5">
-                                <h3 class="intro-subtitle text-primary" style="-webkit-text-stroke: 1px orange;
-                                                                            font-weight: bold; font-size: 24px;
-                                                                            color: white !important;">
-                                    Hệ thống sân bóng N4J
-                                </h3><!-- End .h3 intro-subtitle -->
-                                <h1 class="intro-title text-white">Toàn Quốc<br>Đa Dạng</h1>
-                                <!-- End .intro-title -->
-                            </div><!-- End .col-md-6 offset-md-6 -->
-                        </div><!-- End .row -->
-                    </div><!-- End .intro-content -->
-                </div><!-- End .intro-slide -->
-            </div><!-- End .intro-slider owl-carousel owl-simple -->
-
-            <span class="slider-loader"></span><!-- End .slider-loader -->
-        </div><!-- End .intro-slider-container -->
-        <div class="container for-you">
+        <div th:replace="layout/slide :: slide"></div>
+        <!-- End .intro-slider-container -->
+        <div class="container for-you" style="margin-top: 30px;">
 <!--            <div class="heading heading-flex mb-3">-->
 <!--                <div class="heading-left">-->
 <!--                    <h2 class="title">Recommendation For You</h2>&lt;!&ndash; End .title &ndash;&gt;-->
@@ -75,11 +60,10 @@
 
                     <div class="col-6 col-md-4 col-lg-3" th:each="field : ${fieldList}">
                         <div class="product product-2">
-                            <figure class="product-media">
                                 <a th:href="@{/detail-field/{fieldId}(fieldId=${field.fieldId})}">
                                     <img th:src="@{'/assets/upload/' + ${field.fieldImage}}"
                                          alt="Product image"
-                                         class="product-image" height="">
+                                         class="product-image" style="border-radius: 10px;">
                                 </a>
 
 <!--                                <div class="product-action">-->
@@ -87,7 +71,6 @@
 <!--                                       title="Add to cart"><span>Add to cart</span></a>-->
 <!--                                    <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>-->
 <!--                                </div>&lt;!&ndash; End .product-action &ndash;&gt;-->
-                            </figure><!-- End .product-media -->
 
                             <div class="product-body">
                                 <div class="product-cat">

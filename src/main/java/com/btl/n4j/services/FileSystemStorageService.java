@@ -30,7 +30,9 @@ public class FileSystemStorageService  implements StorageService{
     @Override
     public void store(MultipartFile file) {
         try {
-
+            if (!Files.exists(rootLocation)) {
+                Files.createDirectories(rootLocation);
+            }
             Path destinationFile = this.rootLocation.resolve(Paths.get(file.getOriginalFilename())).normalize().toAbsolutePath();
 
             try (InputStream inputStream = file.getInputStream()) {

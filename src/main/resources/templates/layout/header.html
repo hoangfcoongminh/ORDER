@@ -1,3 +1,4 @@
+
 <header class="header header-intro-clearance header-4" th:fragment="header">
     <div class="header-top">
         <div class="container">
@@ -19,20 +20,21 @@
     <div class="header-middle">
         <div class="container">
             <div class="header-left">
-                <a href="#" class="logo">
-                    <img th:src="@{assets/front-end/images/n4j-logo.png}" alt="Logo" width="105" height="25">
+                <a href="/" class="logo">
+                    <img th:src="@{/assets/front-end/images/n4j-logo.png}" alt="Logo" width="250" style="border-radius: 12px;">
                 </a>
             </div><!-- End .header-left -->
 
             <div class="header-center">
                 <div class="header-search header-search-extended header-search-visible d-none d-lg-block">
                     <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
-                    <form action="#" method="get">
+                    <form th:action="@{/search}">
                         <div class="header-search-wrapper search-wrapper-wide">
                             <label for="q" class="sr-only">Search</label>
                             <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
-                            <input type="search" class="form-control" name="q" id="q"
+                            <input type="search" class="form-control" name="keyword" id="q"
                                    placeholder="Search ..." required>
+<!--                            <button class="btn btn-primary" type="submit" value="Tìm kiếm"></button>-->
                         </div><!-- End .header-search-wrapper -->
                     </form>
                 </div><!-- End .header-search -->
@@ -57,24 +59,27 @@
             <div class="container" style="justify-content: center;">
                 <div class="header-center">
                     <nav class="main-nav">
-                        <ul class="menu sf-arrows">
+                        <ul class="menu sf-arrows menu-bar">
                             <li class="megamenu-container active">
-                                <a href="index.html" class="" style="width: 80px; text-algin: center;">Home</a>
+                                <a href="/" class="" style="font-size: 16px; width: 150px; text-align: center;">Trang chủ</a>
+                            </li>
+                            <li class="hover-sub-menu">
+                                <a href="#" class="" style="font-size: 16px; width: 150px; text-align: center;">Loại sân</a>
+                                <ul class="sub-menu" style="font-size: 16px; display: none; position: absolute; min-width: 180px;
+                                                    top: 51px; left: 0px;">
+                                    <li th:each="f : ${fieldTypeList}">
+                                        <a th:href="@{/fieldtype/{id}(id=${f.fieldTypeId})}" th:text="${f.typeName}" style="font-size: 16px;"></a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
-                                <a href="category.html" class="" style="width: 80px; text-algin: center;">Shop</a>
+                                <a href="/field" class="" style="font-size: 16px; width: 150px; text-align: center;">Sân</a>
                             </li>
                             <li>
-                                <a href="product.html" class="" style="width: 80px; text-algin: center;">Product</a>
+                                <a href="#" class="" style="font-size: 16px; width: 150px; text-align: center;">Giới thiệu</a>
                             </li>
                             <li>
-                                <a href="#" class="" style="width: 80px; text-algin: center;">Pages</a>
-                            </li>
-                            <li>
-                                <a href="blog.html" class="" style="width: 80px; text-algin: center;">Blog</a>
-                            </li>
-                            <li>
-                                <a href="elements-list.html" class="" style="width: 80px; text-algin: center;">Elements</a>
+                                <a href="#" class="" style="font-size: 16px; width: 150px; text-align: center;">Liên hệ</a>
                             </li>
                         </ul><!-- End .menu -->
                     </nav><!-- End .main-nav -->

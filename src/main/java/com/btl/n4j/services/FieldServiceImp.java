@@ -55,4 +55,16 @@ public class FieldServiceImp implements FieldService{
         }
         return false;
     }
+
+    @Override
+    public List<Field> searchField(String keyword) {
+
+        return this.fieldRepository.searchField(keyword);
+    }
+
+    @Override
+    public List<Field> findByFieldTypeId(Integer fieldTypeId) {
+
+        return this.fieldRepository.findByFieldTypeId(fieldTypeId);
+    }
 }

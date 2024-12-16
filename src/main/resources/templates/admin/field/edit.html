@@ -33,6 +33,7 @@
                 <!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" method="post" enctype="multipart/form-data" th:action="@{/admin/add-field}" th:object="${field}">
+                    <input type="hidden" th:field="*{fieldId}">
                     <div class="box-body">
                         <div class="row">
                             <div class="col-md-4">
