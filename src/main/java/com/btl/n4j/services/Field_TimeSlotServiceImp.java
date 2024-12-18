@@ -1,6 +1,7 @@
 package com.btl.n4j.services;
 
 import com.btl.n4j.models.Field_TimeSlot;
+import com.btl.n4j.models.TimeSlot;
 import com.btl.n4j.repository.Field_TimeSlotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,5 +55,10 @@ public class Field_TimeSlotServiceImp implements Field_TimeSlotService{
             ex.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public List<TimeSlot> findTimeSlotByFieldId(Integer fieldId) {
+        return this.fieldTimeSlotRepository.findTimeSlotsByFieldId(fieldId);
     }
 }

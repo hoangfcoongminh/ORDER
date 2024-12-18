@@ -60,22 +60,13 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Price Per Hour:</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1"
-                                           th:field="*{pricePerHour}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
                                     <label>Giờ</label>
                                     <select class="form-control" style="width: 100%;" th:field="*{timeSlot.timeSlotId}">
                                         <option value="">-- Chọn Khung giờ --</option>
                                         <option th:each="t : ${timeSlotList}" th:value="${t.timeSlotId}">
-                                            <p th:text="${t.dayOfWeek}"></p>
-                                            <p th:text="${t.startTime}"></p>
-                                            <p th:text="${t.endTime}"></p>
+                                            <p th:text="'Giá: ' + ${t.pricePerHour} + '/giờ'"></p>
+                                            <p th:text="'Từ ' + ${t.startTime}"></p>
+                                            <p th:text="' đến ' + ${t.endTime}"></p>
                                         </option>
                                     </select>
                                 </div>

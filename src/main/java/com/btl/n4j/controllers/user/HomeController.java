@@ -1,12 +1,10 @@
 package com.btl.n4j.controllers.user;
 
-import com.btl.n4j.models.Category;
-import com.btl.n4j.models.Field;
-import com.btl.n4j.models.FieldType;
-import com.btl.n4j.models.User;
+import com.btl.n4j.models.*;
 import com.btl.n4j.services.CategoryService;
 import com.btl.n4j.services.FieldService;
 import com.btl.n4j.services.FieldTypeService;
+import com.btl.n4j.services.Field_TimeSlotService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -27,6 +25,9 @@ public class HomeController {
 
     @Autowired
     private FieldTypeService fieldTypeService;
+
+    @Autowired
+    private Field_TimeSlotService fieldTimeSlotService;
 
     @GetMapping()
     public String index(HttpSession session, Model model) {
@@ -86,6 +87,9 @@ public class HomeController {
 
         List<FieldType> fieldTypeList = this.fieldTypeService.getAll();
         model.addAttribute("fieldTypeList", fieldTypeList);
+
+        List<TimeSlot> timeSlotList = this.fieldTimeSlotService.findTimeSlotByFieldId(fieldId);
+        model.addAttribute("timeSlotList", timeSlotList);
 
         return "detail";
     }

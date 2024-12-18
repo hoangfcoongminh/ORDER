@@ -62,7 +62,7 @@
             <div class="col-md-6">
               <div class="product-gallery">
                 <figure class="product-main-image">
-                  <img id="product-zoom" th:src="@{'/assets/upload/' + ${field.fieldImage}}" style="width: 50%;">
+                  <img id="product-zoom" th:src="@{'/assets/upload/' + ${field.fieldImage}}" style="width: 100%;">
 
                   <a href="#" id="btn-product-gallery" class="btn-product-gallery">
                     <i class="icon-arrows"></i>
@@ -92,9 +92,9 @@
 
             <div class="col-md-6">
               <div class="product-details">
-                <h1 class="product-title" th:text="${field.fieldName}"></h1><!-- End .product-title -->
+                <p style="font-size: 36px;" class="product-title" th:text="${field.fieldName}"></p><!-- End .product-title -->
 
-                <div class="ratings-container">
+                <div class="ratings-container" style="font-size: 14px;">
                   <div class="ratings">
                     <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
                   </div><!-- End .ratings -->
@@ -102,34 +102,31 @@
                 </div><!-- End .rating-container -->
 
                 <div class="product-price">
-                  $70.00
+                  <p style="font-size: 24px; color: #3399ff; font-weight: 400;">Giá: <span id="priceDisplay">Vui lòng chọn khung giờ!</span></p>
                 </div><!-- End .product-price -->
 
                 <div class="product-content">
-                  <p style="padding-right: 5px;">Địa chỉ:</p>
-                  <p th:text="${field.address}"></p>
+                  <p style="font-size: 18px;" th:text="'Địa chỉ: ' + ${field.address}"></p>
                 </div><!-- End .product-content -->
 
-                <div class="details-filter-row details-row-size">
-                  <label>Color:</label>
+<!--                <div class="details-filter-row details-row-size">-->
+<!--                  <label>Color:</label>-->
 
-                  <div class="product-nav product-nav-dots">
-                    <a href="#" class="active" style="background: #eab656;"><span class="sr-only">Color name</span></a>
-                    <a href="#" style="background: #333333;"><span class="sr-only">Color name</span></a>
-                    <a href="#" style="background: #3a588b;"><span class="sr-only">Color name</span></a>
-                    <a href="#" style="background: #caab97;"><span class="sr-only">Color name</span></a>
-                  </div><!-- End .product-nav -->
-                </div><!-- End .details-filter-row -->
+<!--                  <div class="product-nav product-nav-dots">-->
+<!--                    <a href="#" class="active" style="background: #eab656;"><span class="sr-only">Color name</span></a>-->
+<!--                    <a href="#" style="background: #333333;"><span class="sr-only">Color name</span></a>-->
+<!--                    <a href="#" style="background: #3a588b;"><span class="sr-only">Color name</span></a>-->
+<!--                    <a href="#" style="background: #caab97;"><span class="sr-only">Color name</span></a>-->
+<!--                  </div>&lt;!&ndash; End .product-nav &ndash;&gt;-->
+<!--                </div>&lt;!&ndash; End .details-filter-row &ndash;&gt;-->
 
-                <div class="details-filter-row details-row-size">
-                  <label for="size">Size:</label>
+                <div class="details-filter-row details-row-size" style="font-size: ">
+                  <label style="font-size: 18px;">Giờ:</label>
                   <div class="select-custom">
-                    <select name="size" id="size" class="form-control">
-                      <option value="#" selected="selected">Select a size</option>
-                      <option value="s">Small</option>
-                      <option value="m">Medium</option>
-                      <option value="l">Large</option>
-                      <option value="xl">Extra Large</option>
+                    <select name="time" id="time" style="font-size: 16px;" class="form-control" onchange="updatePrice()">
+                      <option value="#" selected="selected">-- Chọn khung giờ --</option>
+                      <option th:each="t : ${timeSlotList}" th:value="${t.timeSlotId}" th:data-price="${t.pricePerHour}"
+                              th:text="'Từ ' + ${t.startTime} + ' đến ' + ${t.endTime}"></option>
                     </select>
                   </div><!-- End .select-custom -->
                 </div><!-- End .details-filter-row -->
@@ -141,7 +138,7 @@
                 <div class="product-details-footer">
                   <div class="product-cat">
                     <span>Field Type:</span>
-                    <a th:text="${field.fieldType.typeName}"></a>
+                    <a th:href="@{/fieldtype/{id}(id=${field.fieldType.fieldTypeId})}" th:text="${field.fieldType.typeName}"></a>
                   </div><!-- End .product-cat -->
 
                   <div class="social-icons social-icons-sm">
@@ -170,6 +167,21 @@
 <div th:replace="layout/tag_script :: script"></div>
 
 </body>
+<script>
+  function updatePrice() {
+    // Lấy select và giá trị option được chọn
+    const selectElement = document.getElementById("time");
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+
+    // Lấy giá từ thuộc tính data-price
+    const price = selectedOption.getAttribute("data-price");
+
+    // Cập nhật giá hiển thị
+    const priceDisplay = document.getElementById("priceDisplay");
+    if (price == null) price = 0;
+    priceDisplay.textContent = price + "/giờ"; // Hiển thị "0" nếu không có giá
+  }
+</script>
 
 <!-- Mirrored from portotheme.com/html/molla/index-4.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Jan 2024 02:55:58 GMT -->
 </html>

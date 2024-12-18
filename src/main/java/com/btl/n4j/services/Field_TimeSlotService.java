@@ -1,6 +1,8 @@
 package com.btl.n4j.services;
 
 import com.btl.n4j.models.Field_TimeSlot;
+import com.btl.n4j.models.TimeSlot;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -14,4 +16,6 @@ public interface Field_TimeSlotService {
     Boolean update(Field_TimeSlot fieldTimeSlot);
 
     Boolean delete(Integer id);
+
+    List<TimeSlot> findTimeSlotByFieldId(Integer fieldId);
 }

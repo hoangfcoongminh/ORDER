@@ -59,17 +59,18 @@
                                                 aria-label="Rendering engine: activate to sort column descending"
                                                 style="width: 300px;">Field Name
                                             </th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1"
+                                                colspan="1" aria-sort="ascending"
+                                                aria-label="Rendering engine: activate to sort column descending"
+                                                style="width: 300px;">Field Image
+                                            </th>
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                                 colspan="1" aria-label="Browser: activate to sort column ascending"
                                                 style="width: 380px;">Address
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                                 colspan="1" aria-label="Browser: activate to sort column ascending"
-                                                style="width: 180px;">Price Per Hour
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                colspan="1" aria-label="Browser: activate to sort column ascending"
-                                                style="width: 250px;">Time
+                                                style="width: 180px;">Information
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                                 colspan="1" aria-label="Platform(s): activate to sort column ascending"
@@ -80,10 +81,11 @@
                                     <tbody>
                                         <tr role="row" class="even" th:each="f : ${fieldTimeSlots}">
                                             <td class="sorting_1" th:text="${f.field.fieldName}" style="font-weight: bold;"></td>
+                                            <td><img th:src="@{'/assets/upload/' + ${f.field.fieldImage}}" width="200"></td>
                                             <td th:text="${f.field.address}"></td>
-                                            <td th:text="${f.pricePerHour}"></td>
                                             <td>
-                                                <p th:text="${f.timeSlot.startTime} + ' đến ' + ${f.timeSlot.endTime}"></p>
+                                                <p th:text="'Giá ' + ${f.timeSlot.pricePerHour} + '/giờ'"></p>
+                                                <p th:text="'Từ ' + ${f.timeSlot.startTime} + ' đến ' + ${f.timeSlot.endTime}"></p>
                                             </td>
                                             <td th:if="${f.available}"><span class="label label-success">Trống</span></td>
                                             <td th:if="${!f.available}"><span class="label label-danger">Đang thuê</span></td>
@@ -96,9 +98,9 @@
                                     <tfoot>
                                     <tr>
                                         <th rowspan="1" colspan="1">Field Name</th>
+                                        <th rowspan="1" colspan="1">Field Image</th>
                                         <th rowspan="1" colspan="1">Address</th>
-                                        <th rowspan="1" colspan="1">Price Per Hour</th>
-                                        <th rowspan="1" colspan="1">Time</th>
+                                        <th rowspan="1" colspan="1">Information</th>
                                         <th rowspan="1" colspan="1">Available</th>
                                     </tr>
                                     </tfoot>
