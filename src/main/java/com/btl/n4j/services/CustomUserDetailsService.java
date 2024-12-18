@@ -40,6 +40,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findOptionalByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy người dùng!"));
 
+        if(user.getRole().equals("ADMIN"))
+            return new CustomUserDetails(user, AuthorityUtils.createAuthorityList("ROLE_ADMIN"));
+
         return new CustomUserDetails(user, AuthorityUtils.createAuthorityList("ROLE_USER"));
     }
 

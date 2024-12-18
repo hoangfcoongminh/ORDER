@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="{~admin/layout/tag_head :: head}"></head>
+<head th:replace="~{admin/layout/tag_head :: head}"></head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 
   <!--Header-->
-  <div th:replace="{~admin/layout/header :: header}"></div>
+  <div th:replace="~{admin/layout/header :: header}"></div>
   <!-- =============================================== -->
 
   <!-- Left side column. contains the sidebar -->
-  <div th:replace="{~admin/layout/side_bar :: sidebar}"></div>
+  <div th:replace="~{admin/layout/side_bar :: sidebar}"></div>
 
   <!-- =============================================== -->
 
@@ -18,10 +18,10 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>Danh sách Danh mục</h1>
+      <h1>Danh sách Đơn đặt</h1>
       <ol class="breadcrumb">
         <li><a href="/admin"><i class="fa fa-dashboard"></i>Trang chủ</a></li>
-        <li><a th:href="@{/admin/category}">Quản lý danh mục</a></li>
+        <li><a th:href="@{/admin/booking}">Quản lý Đơn đặt</a></li>
         <li class="active">Index</li>
       </ol>
     </section>
@@ -29,9 +29,6 @@
     <!-- Main content -->
     <section class="content">
       <div class="box">
-        <div>
-          <a class="btn btn-primary" href="add-category">Thêm mới</a>
-        </div>
         <!-- /.box-header -->
         <div class="box-body">
           <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -90,14 +87,10 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr role="row" class="even" th:each="category : ${categoryList}">
-                    <td class="sorting_1" th:text="${category.categoryId}" style="font-weight: bold;"></td>
-                    <td th:text="${category.categoryName}"></td>
-                    <td th:text="${category.detail}"></td>
-                    <td>
-                      <a th:href="@{/admin/edit-category/{categoryId}(categoryId=${category.categoryId})}" class="btn btn-primary">Edit</a>
-                      <a th:href="@{/admin/delete-category/{categoryId}(categoryId=${category.categoryId})}" class="btn btn-danger" onclick="return confirm('Bạn chắc chắn chứ?')">Delete</a>
-                    </td>
+                  <tr role="row" class="even" th:each="b : ${bookingList}">
+                    <td class="sorting_1" th:text="${b.bookingId}" style="font-weight: bold;"></td>
+<!--                    <td th:text="${b.fieldTimeslot.fieldName}"></td>-->
+                    <td th:text="${b.user.fullName}"></td>
                   </tr>
                   </tbody>
                   <tfoot>
@@ -160,7 +153,7 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <div th:replace="{~admin/layout/footer :: footer}"></div>
+  <div th:replace="~{admin/layout/footer :: footer}"></div>
 
 </div>
 <!-- ./wrapper -->
@@ -168,6 +161,6 @@
 <!-- jQuery 3 -->
 
 <!--script-->
-<div th:replace="{~admin/layout/tag_script :: script}"></div>
+<div th:replace="~{admin/layout/tag_script :: script}"></div>
 </body>
 </html>

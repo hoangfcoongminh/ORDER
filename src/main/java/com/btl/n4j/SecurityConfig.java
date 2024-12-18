@@ -40,7 +40,7 @@ public class SecurityConfig  {
                 // Kiểm tra vai trò của người dùng và chuyển hướng tương ứng
                 Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
-                if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+                if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
                     response.sendRedirect("/admin");
                 } else {
                     response.sendRedirect("/");
