@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security6">
 
-<head th:replace="layout/tag_head :: head"></head>
+<head th:replace="~{layout/tag_head :: head}"></head>
 <style>
     .menu-bar > li {
             position: relative;
@@ -34,11 +34,79 @@
         .hover-sub-menu:hover > .sub-menu {
             display: block;
         }
+        /* Kiểu cho các mục dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Kiểu cho menu dropdown */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+            /* Kiểu cho các mục trong menu dropdown */
+            .dropdown-content a {
+                color: black;
+                margin: 0;
+                padding: 10px;
+                width: 200px;
+                text-decoration: none;
+                display: block;
+                text-align: left;
+            }
+
+        .dropdown {
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        /* Hiển thị menu dropdown khi di chuột vào */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Hiển thị submenu khi di chuột vào mục con */
+        .dropdown-submenu:hover .dropdown-content {
+            display: block;
+            left: 100%;
+            top: 5;
+        }
+
+        /* Đảm bảo submenu nằm ngang bên phải của mục chính */
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #0172eb;
+            color: white;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .navbar a:hover, .dropdown:hover .dropbtn {
+            background-color: #ddd;
+            color: black;
+        }
+    .nav-log:hover {
+      background-color: #60c0f5;
+    }
+    .nav-log:hover > a {
+      color: white;
+    }
 </style>
 <body>
 <div class="page-wrapper">
     <!-- Begin Header-->
-    <header th:replace="layout/header :: header"></header>
+    <header th:replace="~{layout/header :: header}"></header>
     <!-- End Header -->
 
     <main class="main">
@@ -76,9 +144,14 @@
                                             <span>ĐĂNG NHẬP</span>
                                             <i class="icon-long-arrow-right"></i>
                                         </button>
+                                        <div th:if="${error}" >
+                                            <p th:text="${error}" class="text-danger" style="color: red;"></p>
+                                        </div>
                                     </div><!-- End .form-footer -->
+
                                 </form>
                             </div><!-- .End .tab-pane -->
+
                         </div><!-- End .tab-content -->
                     </div><!-- End .form-tab -->
                 </div><!-- End .form-box -->
@@ -88,13 +161,13 @@
     </main><!-- End .main -->
 
     <!-- Begin Footer    -->
-    <footer th:replace="layout/footer :: footer"></footer>
+    <footer th:replace="~{layout/footer :: footer}"></footer>
     <!-- End Footer -->
 </div><!-- End .page-wrapper -->
 
 <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
 
-<div th:replace="layout/tag_script :: script"></div>
+<div th:replace="~{layout/tag_script :: script}"></div>
 
 </body>
 <!-- Mirrored from portotheme.com/html/molla/index-4.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Jan 2024 02:55:58 GMT -->

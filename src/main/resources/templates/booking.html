@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security6">
 
-<head th:replace="layout/tag_head :: head"></head>
+<head th:replace="~{layout/tag_head :: head}"></head>
 <style>
     .menu-bar > li {
             position: relative;
@@ -34,11 +34,79 @@
         .hover-sub-menu:hover > .sub-menu {
             display: block;
         }
+        /* Kiểu cho các mục dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Kiểu cho menu dropdown */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+            /* Kiểu cho các mục trong menu dropdown */
+            .dropdown-content a {
+                color: black;
+                margin: 0;
+                padding: 10px;
+                width: 200px;
+                text-decoration: none;
+                display: block;
+                text-align: left;
+            }
+
+        .dropdown {
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        /* Hiển thị menu dropdown khi di chuột vào */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Hiển thị submenu khi di chuột vào mục con */
+        .dropdown-submenu:hover .dropdown-content {
+            display: block;
+            left: 100%;
+            top: 5;
+        }
+
+        /* Đảm bảo submenu nằm ngang bên phải của mục chính */
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #0172eb;
+            color: white;
+            display: block;
+            border-radius: 6px;
+        }
+
+        .navbar a:hover, .dropdown:hover .dropbtn {
+            background-color: #ddd;
+            color: black;
+        }
+    .nav-log:hover {
+      background-color: #60c0f5;
+    }
+    .nav-log:hover > a {
+      color: white;
+    }
 </style>
 <body>
 <div class="page-wrapper">
     <!-- Begin Header-->
-    <header th:replace="layout/header :: header"></header>
+    <header th:replace="~{layout/header :: header}"></header>
     <!-- End Header -->
 
     <main class="main">
@@ -47,31 +115,31 @@
             <div class="page-content">
                 <div class="checkout">
                     <div class="container">
-                        <form action="/order-cart" method="post" >
+                        <form th:action="@{/booking-field}" method="post" th:object="${booking}">
                             <div class="row">
                                 <div class="col-lg-9">
-                                    <h2 class="checkout-title">THÔNG TIN</h2><!-- End .checkout-title -->
+                                    <h2 class="checkout-title">THÔNG TIN CÁ NHÂN</h2><!-- End .checkout-title -->
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <label>Họ tên *</label>
-                                            <input type="text" class="form-control" required="">
+                                            <input type="text" class="form-control" th:field="*{user}" required="">
                                         </div><!-- End .col-sm-6 -->
 
                                         <div class="col-sm-6">
                                             <label>SĐT *</label>
-                                            <input type="text" class="form-control" required="">
+                                            <input type="text" th:field="*{user.phoneNumber}" class="form-control" required="">
                                         </div>
 
-                                        <label>Email *</label>
-                                        <input type="text" class="form-control" required="">
+                                        <label>Email</label>
+                                        <input type="text" th:field="*{user.email}" class="form-control">
 
                                         <label>Địa chỉ *</label>
                                         <input type="text" class="form-control"
-                                               placeholder="Số nhà, tên đường, quận/huyện, tỉnh/thành phố" required="">
+                                               placeholder="Số nhà, tên đường, quận/huyện, tỉnh/thành phố" th:field="*{user.address}" required="">
 
                                         <label>Ghi chú</label>
                                         <textarea class="form-control" cols="30" rows="4"
-                                                  placeholder="Ghi chú cho sân...."></textarea>
+                                                  placeholder="Ghi chú cho sân...." th:field="*{note}"></textarea>
                                     </div>
                                 </div><!-- End .col-lg-9 -->
                                 <aside class="col-lg-3">
@@ -88,20 +156,21 @@
 
                                             <tbody>
                                             <tr>
-                                                <td><a href="#">TÊN SÂN</a></td>
-                                                <td>130000/h</td>
+                                                <td><a href="#" th:text="${booking.fieldTimeslot.field.fieldName}"></a></td>
+                                                <td th:text="${booking.fieldTimeslot.timeSlot.pricePerHour} + 'VNĐ'"></td>
                                             </tr>
                                             <tr>
                                               <td><p>NGÀY</p></td>
-                                              <td><p>23/01/2003</p></td>
+                                              <td><p th:text="${date}"></p></td>
                                             </tr>
                                             <tr>
                                               <td><p>THỜI GIAN</p></td>
-                                              <td><p>16:30 - 18:30</p></td>
+                                              <td th:text="${#dates.format(booking.fieldTimeslot.timeSlot.startTime, 'HH:mm')}
+                                             + ' - ' + ${#dates.format(booking.fieldTimeslot.timeSlot.endTime, 'HH:mm')} "></td>
                                             </tr>
                                             <tr class="summary-total">
                                                 <td>Tổng cộng</td>
-                                                <td>230000đ</td>
+                                                <td th:text="${booking.fieldTimeslot.timeSlot.pricePerHour} + 'VNĐ'"></td>
                                             </tr><!-- End .summary-subtotal -->
                                             </tbody>
                                         </table><!-- End .table table-summary -->
@@ -125,10 +194,16 @@
                                             </div><!-- End .card -->
                                         </div><!-- End .accordion -->
 
+                                        <input type="hidden" th:value="${booking.fieldTimeslot.timeSlot.pricePerHour}" th:field="*{totalPrice}">
+
                                         <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
                                             <span class="btn-text">ĐẶT SÂN</span>
                                             <span class="btn-hover-text">TIẾN HÀNH ĐẶT</span>
                                         </button>
+
+                                        <div th:if="${fieldTimeSlot}" class="error-message">
+                                            <p class="text-danger" th:text="${fieldTimeSlot}"></p>
+                                        </div>
                                     </div><!-- End .summary -->
                                 </aside><!-- End .col-lg-3 -->
                             </div><!-- End .row -->
@@ -137,16 +212,19 @@
                 </div><!-- End .checkout -->
             </div>
         </div><!-- End .container -->
+        <div th:if="${fieldTimeSlot}" class="error-message">
+            <p class="text-danger" th:text="${fieldTimeSlot}"></p>
+        </div>
     </main><!-- End .main -->
 
     <!-- Begin Footer    -->
-    <footer th:replace="layout/footer :: footer"></footer>
+    <footer th:replace="~{layout/footer :: footer}"></footer>
     <!-- End Footer -->
 </div><!-- End .page-wrapper -->
 
 <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
 
-<div th:replace="layout/tag_script :: script"></div>
+<div th:replace="~{layout/tag_script :: script}"></div>
 
 </body>
 

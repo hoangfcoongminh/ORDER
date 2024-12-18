@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,7 +28,7 @@ import java.util.Collection;
 public class SecurityConfig  {
 
     @Autowired
-    private CustomUserDetailsService customUserDetailService;
+    private CustomUserDetailsService customUserDetailsService;
 
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
@@ -51,6 +52,7 @@ public class SecurityConfig  {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+            .userDetailsService(customUserDetailsService)
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(  auth -> auth
                     .requestMatchers("/", "/field", "/fieldtype/**", "/search", "/detail-field/**", "/logon", "/register").permitAll()
@@ -70,6 +72,11 @@ public class SecurityConfig  {
             )
             .exceptionHandling(handling -> handling
                     .accessDeniedPage("/") // Chỉ định trang lỗi khi không có quyền
+            )
+            .sessionManagement(session -> session
+                    .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                    .maximumSessions(1)
+                    .maxSessionsPreventsLogin(false)
             );
         return http.build();
     }

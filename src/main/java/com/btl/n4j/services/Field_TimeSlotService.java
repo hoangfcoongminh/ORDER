@@ -17,5 +17,7 @@ public interface Field_TimeSlotService {
 
     Boolean delete(Integer id);
 
-    List<TimeSlot> findTimeSlotByFieldId(Integer fieldId);
+    Field_TimeSlot findByFieldAndTimeId(Integer fieldId, Integer timeSlotId);
+
+    List<TimeSlot> findTimeSlotAvaibleByFieldId(Integer fieldId);
 }

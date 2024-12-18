@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="admin/layout/tag_head :: head"></head>
+<head th:replace="~{admin/layout/tag_head :: head}"></head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 
     <!--Header-->
-    <div th:replace="admin/layout/header :: header"></div>
+    <div th:replace="~{admin/layout/header :: header}"></div>
     <!-- =============================================== -->
 
     <!-- Left side column. contains the sidebar -->
-    <div th:replace="admin/layout/side_bar :: sidebar"></div>
+    <div th:replace="~{admin/layout/side_bar :: sidebar}"></div>
 
     <!-- =============================================== -->
 
@@ -72,7 +72,7 @@
     </div>
     <!-- /.content-wrapper -->
 
-    <div th:replace="admin/layout/footer :: footer"></div>
+    <div th:replace="~{admin/layout/footer :: footer}"></div>
 
 </div>
 <!-- ./wrapper -->
@@ -80,6 +80,6 @@
 <!-- jQuery 3 -->
 
 <!--script-->
-<div th:replace="admin/layout/tag_script :: script"></div>
+<div th:replace="~{admin/layout/tag_script :: script}"></div>
 </body>
 </html>

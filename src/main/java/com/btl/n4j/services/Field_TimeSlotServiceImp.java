@@ -58,7 +58,13 @@ public class Field_TimeSlotServiceImp implements Field_TimeSlotService{
     }
 
     @Override
-    public List<TimeSlot> findTimeSlotByFieldId(Integer fieldId) {
-        return this.fieldTimeSlotRepository.findTimeSlotsByFieldId(fieldId);
+    public Field_TimeSlot findByFieldAndTimeId(Integer fieldId, Integer timeSlotId) {
+        return this.fieldTimeSlotRepository.findByFieldAndTimeId(fieldId, timeSlotId);
     }
+
+    @Override
+    public List<TimeSlot> findTimeSlotAvaibleByFieldId(Integer fieldId) {
+        return this.fieldTimeSlotRepository.findAvailableTimeSlotsByFieldId(fieldId);
+    }
+
 }

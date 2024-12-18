@@ -1,15 +1,14 @@
 package com.btl.n4j.controllers.user;
 
 import com.btl.n4j.models.*;
-import com.btl.n4j.services.CategoryService;
-import com.btl.n4j.services.FieldService;
-import com.btl.n4j.services.FieldTypeService;
-import com.btl.n4j.services.Field_TimeSlotService;
+import com.btl.n4j.repository.UserRepository;
+import com.btl.n4j.services.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("")
 public class HomeController {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private FieldService fieldService;
@@ -29,16 +30,19 @@ public class HomeController {
     @Autowired
     private Field_TimeSlotService fieldTimeSlotService;
 
-    @GetMapping()
+    @GetMapping("/")
     public String index(HttpSession session, Model model) {
+
+        User loggedUser = (User) session.getAttribute("loggedInUser");
+
+        model.addAttribute("loggedUser", loggedUser);
 
         List<FieldType> fieldTypeList = this.fieldTypeService.getAll();
         model.addAttribute("fieldTypeList", fieldTypeList);
 
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
-        model.addAttribute("loggedInUser", loggedInUser); // Thông tin người dùng hiện tại (nếu có)
         return "index";
     }
+
 
     @GetMapping("/search")
     public String search(Model model, @Param("keyword") String keyword) {
@@ -88,7 +92,7 @@ public class HomeController {
         List<FieldType> fieldTypeList = this.fieldTypeService.getAll();
         model.addAttribute("fieldTypeList", fieldTypeList);
 
-        List<TimeSlot> timeSlotList = this.fieldTimeSlotService.findTimeSlotByFieldId(fieldId);
+        List<TimeSlot> timeSlotList = this.fieldTimeSlotService.findTimeSlotAvaibleByFieldId(fieldId);
         model.addAttribute("timeSlotList", timeSlotList);
 
         return "detail";

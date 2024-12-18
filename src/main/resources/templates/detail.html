@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security6">
 
-<head th:replace="layout/tag_head :: head"></head>
+<head th:replace="~{layout/tag_head :: head}"></head>
 <style>
   .menu-bar > li {
           position: relative;
@@ -34,14 +34,154 @@
       .hover-sub-menu:hover > .sub-menu {
           display: block;
       }
-  .product-details-action .btn-cart:hover > span {
+      /* Kiểu cho các mục dropdown */
+      .dropdown {
+          position: relative;
+          display: inline-block;
+      }
+
+      /* Kiểu cho menu dropdown */
+      .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f9f9f9;
+          min-width: 160px;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 1;
+          border-radius: 6px;
+          font-size: 16px;
+      }
+
+          /* Kiểu cho các mục trong menu dropdown */
+          .dropdown-content a {
+              color: black;
+              margin: 0;
+              padding: 10px;
+              width: 200px;
+              text-decoration: none;
+              display: block;
+              text-align: left;
+          }
+
+      .dropdown {
+          padding: 8px;
+          border-radius: 8px;
+      }
+
+      /* Hiển thị menu dropdown khi di chuột vào */
+      .dropdown:hover .dropdown-content {
+          display: block;
+      }
+
+      /* Hiển thị submenu khi di chuột vào mục con */
+      .dropdown-submenu:hover .dropdown-content {
+          display: block;
+          left: 100%;
+          top: 5;
+      }
+
+      /* Đảm bảo submenu nằm ngang bên phải của mục chính */
+      .dropdown-submenu {
+          position: relative;
+      }
+
+      .dropdown-content a:hover {
+          background-color: #0172eb;
+          color: white;
+          display: block;
+          border-radius: 6px;
+      }
+
+      .navbar a:hover, .dropdown:hover .dropbtn {
+          background-color: #ddd;
+          color: black;
+      }
+  .nav-log:hover {
+    background-color: #60c0f5;
+  }
+  .nav-log:hover > a {
     color: white;
   }
+  .date-picker-container {
+            width: 300px;
+        }
+
+        .date-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .date-input-group label {
+            color: #666666;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 5px;
+        }
+
+        input[type="date"],
+        input[type="text"] {
+            padding: 10px 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #333;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        input[type="date"] {
+            position: relative;
+            cursor: pointer;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            border-radius: 4px;
+            filter: invert(1);
+        }
+
+        input[type="date"]:hover,
+        input[type="text"]:hover {
+            border-color: #007bff;
+        }
+
+        input[type="date"]:focus,
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        }
+
+        input[type="text"] {
+            background-color: #fff;
+            cursor: default;
+        }
+
+        /* Animation cho focus state */
+        @keyframes focusIn {
+            from {
+                box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+            }
+            to {
+                box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+            }
+        }
+
+        input:focus {
+            animation: focusIn 0.2s ease-out forwards;
+        }
 </style>
 <body>
 <div class="page-wrapper">
   <!-- Begin Header-->
-  <header th:replace="layout/header :: header"></header>
+  <header th:replace="~{layout/header :: header}"></header>
   <!-- End Header -->
 
   <main class="main">
@@ -108,32 +248,35 @@
                 <div class="product-content">
                   <p style="font-size: 18px;" th:text="'Địa chỉ: ' + ${field.address}"></p>
                 </div><!-- End .product-content -->
+                <form th:action="@{/booking-field}" method="get">
+                  <input type="hidden" name="fieldId" th:value="${field.fieldId}">
 
-<!--                <div class="details-filter-row details-row-size">-->
-<!--                  <label>Color:</label>-->
+                  <div class="details-filter-row details-row-size" style="font-size: ">
+                    <label style="font-size: 18px;">Giờ:</label>
+                    <div class="select-custom">
+                      <select name="timeSlotId" id="time" style="font-size: 16px;" class="form-control" onchange="updatePrice()">
+                        <option value="#" selected="selected">-- Chọn khung giờ --</option>
+                        <option th:each="t : ${timeSlotList}" th:value="${t.timeSlotId}" th:data-price="${t.pricePerHour}"
+                                th:text="${#dates.format(t.startTime, 'HH:mm')}
+                                             + '-' + ${#dates.format(t.endTime, 'HH:mm')} "></option>
+                      </select>
+                    </div><!-- End .select-custom -->
+                  </div><!-- End .details-filter-row -->
+                  <div class="date-picker-container">
+                    <div class="date-input-group">
+                      <label for="datePicker">Chọn ngày:</label>
+                      <input type="date" id="datePicker" onchange="formatDate(this.value)">
+                      <input type="hidden" id="formattedDate" name="date" readonly>
+                    </div>
+                  </div>
+                    <!-- /.input group -->
 
-<!--                  <div class="product-nav product-nav-dots">-->
-<!--                    <a href="#" class="active" style="background: #eab656;"><span class="sr-only">Color name</span></a>-->
-<!--                    <a href="#" style="background: #333333;"><span class="sr-only">Color name</span></a>-->
-<!--                    <a href="#" style="background: #3a588b;"><span class="sr-only">Color name</span></a>-->
-<!--                    <a href="#" style="background: #caab97;"><span class="sr-only">Color name</span></a>-->
-<!--                  </div>&lt;!&ndash; End .product-nav &ndash;&gt;-->
-<!--                </div>&lt;!&ndash; End .details-filter-row &ndash;&gt;-->
+                  <div class="product-details-action">
+                    <input type="submit" value="ĐẶT SÂN" class="btn-product btn-cart"/>
+                  </div><!-- End .product-details-action -->
 
-                <div class="details-filter-row details-row-size" style="font-size: ">
-                  <label style="font-size: 18px;">Giờ:</label>
-                  <div class="select-custom">
-                    <select name="time" id="time" style="font-size: 16px;" class="form-control" onchange="updatePrice()">
-                      <option value="#" selected="selected">-- Chọn khung giờ --</option>
-                      <option th:each="t : ${timeSlotList}" th:value="${t.timeSlotId}" th:data-price="${t.pricePerHour}"
-                              th:text="'Từ ' + ${t.startTime} + ' đến ' + ${t.endTime}"></option>
-                    </select>
-                  </div><!-- End .select-custom -->
-                </div><!-- End .details-filter-row -->
+                </form>
 
-                <div class="product-details-action">
-                  <a href="/cart" class="btn-product btn-cart"><span>ĐẶT SÂN</span></a>
-                </div><!-- End .product-details-action -->
 
                 <div class="product-details-footer">
                   <div class="product-cat">
@@ -158,13 +301,13 @@
   </main><!-- End .main -->
 
   <!-- Begin Footer    -->
-  <footer th:replace="layout/footer :: footer"></footer>
+  <footer th:replace="~{layout/footer :: footer}"></footer>
   <!-- End Footer -->
 </div><!-- End .page-wrapper -->
 
 <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
 
-<div th:replace="layout/tag_script :: script"></div>
+<div th:replace="~{layout/tag_script :: script}"></div>
 
 </body>
 <script>
@@ -179,9 +322,35 @@
     // Cập nhật giá hiển thị
     const priceDisplay = document.getElementById("priceDisplay");
     if (price == null) price = 0;
-    priceDisplay.textContent = price + "/giờ"; // Hiển thị "0" nếu không có giá
+    priceDisplay.textContent = price + "VNĐ"; // Hiển thị "0" nếu không có giá
+  }
+
+</script>
+<script>
+  function formatDate(date) {
+      if(date) {
+          let selectedDate = new Date(date);
+          let year = selectedDate.getFullYear();
+          let month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+          let day = String(selectedDate.getDate()).padStart(2, '0');
+
+          document.getElementById('formattedDate').value = `${year}-${month}-${day}`;
+      } else {
+          document.getElementById('formattedDate').value = '';
+      }
+  }
+
+  // Khởi tạo với ngày hiện tại
+  window.onload = function() {
+      let today = new Date();
+      let year = today.getFullYear();
+      let month = String(today.getMonth() + 1).padStart(2, '0');
+      let day = String(today.getDate()).padStart(2, '0');
+
+      let formattedToday = `${year}-${month}-${day}`;
+      document.getElementById('datePicker').value = formattedToday;
+      document.getElementById('formattedDate').value = formattedToday;
   }
 </script>
-
 <!-- Mirrored from portotheme.com/html/molla/index-4.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Jan 2024 02:55:58 GMT -->
 </html>

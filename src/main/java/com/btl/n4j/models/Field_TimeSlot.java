@@ -76,4 +76,11 @@ public class Field_TimeSlot {
     public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
     }
+
+    @Override
+    public String toString() {
+        return "Field_TimeSlot{" +
+                "fieldTimeslotId=" + fieldTimeslotId +
+                '}';
+    }
 }
