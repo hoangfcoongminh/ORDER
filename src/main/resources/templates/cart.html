@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security6">
+
+<head th:replace="layout/tag_head :: head"></head>
+<style>
+    .menu-bar > li {
+            position: relative;
+        }
+    .sub-menu {
+            display: none;
+            position: absolute;
+            min-width: 180px;
+            top: 51px;
+            left: 40px;
+        }
+        .sub-menu > li {
+            list-style: none;
+            height: 50px;
+            width: 180px;
+            height: 50px;
+            line-height: 50px;
+
+        }
+        .sub-menu > li:hover {
+
+            background-color: rgb(5, 131, 45);
+        }
+        .sub-menu >li:hover a {
+            color: white;
+        }
+        .sub-menu > li > a{
+            text-decoration: none;
+        }
+        .hover-sub-menu:hover > .sub-menu {
+            display: block;
+        }
+</style>
+<body>
+<div class="page-wrapper">
+    <!-- Begin Header-->
+    <header th:replace="layout/header :: header"></header>
+    <!-- End Header -->
+
+    <main class="main">
+        <!-- End .intro-slider-container -->
+        <div class="container for-you">
+            <div class="page-content">
+                <div class="checkout">
+                    <div class="container">
+                        <form action="/order-cart" method="post" >
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <h2 class="checkout-title">THÔNG TIN</h2><!-- End .checkout-title -->
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label>Họ tên *</label>
+                                            <input type="text" class="form-control" required="">
+                                        </div><!-- End .col-sm-6 -->
+
+                                        <div class="col-sm-6">
+                                            <label>SĐT *</label>
+                                            <input type="text" class="form-control" required="">
+                                        </div>
+
+                                        <label>Email *</label>
+                                        <input type="text" class="form-control" required="">
+
+                                        <label>Địa chỉ *</label>
+                                        <input type="text" class="form-control"
+                                               placeholder="Số nhà, tên đường, quận/huyện, tỉnh/thành phố" required="">
+
+                                        <label>Ghi chú</label>
+                                        <textarea class="form-control" cols="30" rows="4"
+                                                  placeholder="Ghi chú cho sân...."></textarea>
+                                    </div>
+                                </div><!-- End .col-lg-9 -->
+                                <aside class="col-lg-3">
+                                    <div class="summary">
+                                        <h3 class="summary-title">ĐẶT SÂN</h3><!-- End .summary-title -->
+
+                                        <table class="table table-summary">
+                                            <thead>
+                                            <tr>
+                                                <th>SÂN</th>
+                                                <th>GIÁ</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            <tr>
+                                                <td><a href="#">TÊN SÂN</a></td>
+                                                <td>130000/h</td>
+                                            </tr>
+                                            <tr>
+                                              <td><p>NGÀY</p></td>
+                                              <td><p>23/01/2003</p></td>
+                                            </tr>
+                                            <tr>
+                                              <td><p>THỜI GIAN</p></td>
+                                              <td><p>16:30 - 18:30</p></td>
+                                            </tr>
+                                            <tr class="summary-total">
+                                                <td>Tổng cộng</td>
+                                                <td>230000đ</td>
+                                            </tr><!-- End .summary-subtotal -->
+                                            </tbody>
+                                        </table><!-- End .table table-summary -->
+
+                                        <div class="accordion-summary" id="accordion-payment">
+                                            <div class="card">
+                                                <div class="card-header" id="heading-1">
+                                                    <h2 class="card-title">
+                                                        <a role="button" data-toggle="collapse" href="#collapse-1"
+                                                           aria-expanded="true" aria-controls="collapse-1">
+                                                            Tiền mặt
+                                                        </a>
+                                                    </h2>
+                                                </div><!-- End .card-header -->
+                                                <div id="collapse-1" class="collapse show"
+                                                     aria-labelledby="heading-1" data-parent="#accordion-payment">
+                                                    <div class="card-body">
+                                                        Trả tiền cho nhân viên thu ngân tại sân.
+                                                    </div><!-- End .card-body -->
+                                                </div><!-- End .collapse -->
+                                            </div><!-- End .card -->
+                                        </div><!-- End .accordion -->
+
+                                        <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                                            <span class="btn-text">ĐẶT SÂN</span>
+                                            <span class="btn-hover-text">TIẾN HÀNH ĐẶT</span>
+                                        </button>
+                                    </div><!-- End .summary -->
+                                </aside><!-- End .col-lg-3 -->
+                            </div><!-- End .row -->
+                        </form>
+                    </div><!-- End .container -->
+                </div><!-- End .checkout -->
+            </div>
+        </div><!-- End .container -->
+    </main><!-- End .main -->
+
+    <!-- Begin Footer    -->
+    <footer th:replace="layout/footer :: footer"></footer>
+    <!-- End Footer -->
+</div><!-- End .page-wrapper -->
+
+<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+<div th:replace="layout/tag_script :: script"></div>
+
+</body>
+
+<!-- Mirrored from portotheme.com/html/molla/index-4.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Jan 2024 02:55:58 GMT -->
+</html>

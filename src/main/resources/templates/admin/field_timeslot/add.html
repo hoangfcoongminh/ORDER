@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/layout/tag_head :: head"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    <!--Header-->
+    <div th:replace="admin/layout/header :: header"></div>
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <div th:replace="admin/layout/side_bar :: sidebar"></div>
+
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>Thêm Giờ sân mới</h1>
+            <ol class="breadcrumb">
+                <li><a href="/admin"><i class="fa fa-dashboard"></i>Trang chủ</a></li>
+                <li><a th:href="@{/admin/field_timeslot}">Quản lý Giờ của sân</a></li>
+                <li class="active">Thêm mới</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="box box-primary">
+                <a class="btn btn-primary" href="/admin/field_timeslot">Quay lại</a>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" method="post" th:action="@{/admin/add-field_timeslot}" th:object="${fieldTimeSlot}">
+                    <div class="box-body">
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-4">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label>Loại Sân</label>-->
+<!--                                    <select class="form-control" id="fieldTypeSelect" style="width: 100%;">-->
+<!--                                        <option value="">&#45;&#45; Chọn Loại Sân &#45;&#45;</option>-->
+<!--                                        <option th:each="type : ${fieldTypeList}" th:value="${type.fieldTypeId}" th:text="${type.typeName}"></option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Sân</label>
+                                    <select class="form-control" id="fieldSelect" style="width: 100%;" th:field="*{field.fieldId}">
+                                        <option value="">-- Chọn Sân --</option>
+                                        <option th:each="field : ${fieldList}" th:value="${field.fieldId}" th:text="${field.fieldName}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Price Per Hour:</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1"
+                                           th:field="*{pricePerHour}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Giờ</label>
+                                    <select class="form-control" style="width: 100%;" th:field="*{timeSlot.timeSlotId}">
+                                        <option value="">-- Chọn Khung giờ --</option>
+                                        <option th:each="t : ${timeSlotList}" th:value="${t.timeSlotId}">
+                                            <p th:text="${t.dayOfWeek}"></p>
+                                            <p th:text="${t.startTime}"></p>
+                                            <p th:text="${t.endTime}"></p>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Thêm mới</button>
+                    </div>
+                </form>
+            </div>
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <div th:replace="admin/layout/footer :: footer"></div>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+
+<!--script-->
+<div th:replace="admin/layout/tag_script :: script"></div>
+</body>
+<script>
+    document.getElementById("fieldTypeSelect").addEventListener("change", function () {
+        const fieldTypeId = this.value;
+
+        // Nếu không chọn loại sân, reset dropdown sân
+        if (!fieldTypeId) {
+            const fieldSelect = document.getElementById("fieldSelect");
+            fieldSelect.innerHTML = '<option value="">-- Chọn Sân --</option>';
+            return;
+        }
+
+        // Gửi yêu cầu AJAX lấy danh sách sân theo loại sân
+        fetch(`/admin/api/fieldsbytype?fieldTypeId=${fieldTypeId}`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        const fieldSelect = document.getElementById("fieldSelect");
+        fieldSelect.innerHTML = '<option value="">-- Chọn Sân --</option>';
+
+        data.forEach(field => {
+            const option = document.createElement("option");
+            option.value = field.fieldId;
+            option.textContent = field.fieldName;
+            fieldSelect.appendChild(option);
+        });
+    })
+    .catch(error => {
+        console.error("Error fetching fields:", error);
+        alert("Không thể tải danh sách sân. Vui lòng thử lại.");
+    });
+    });
+</script>
+</html>

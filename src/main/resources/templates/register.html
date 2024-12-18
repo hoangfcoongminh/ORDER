@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security6">
+
+<head th:replace="layout/tag_head :: head"></head>
+<style>
+  .menu-bar > li {
+          position: relative;
+      }
+  .sub-menu {
+          display: none;
+          position: absolute;
+          min-width: 180px;
+          top: 51px;
+          left: 40px;
+      }
+      .sub-menu > li {
+          list-style: none;
+          height: 50px;
+          width: 180px;
+          height: 50px;
+          line-height: 50px;
+
+      }
+      .sub-menu > li:hover {
+
+          background-color: rgb(5, 131, 45);
+      }
+      .sub-menu >li:hover a {
+          color: white;
+      }
+      .sub-menu > li > a{
+          text-decoration: none;
+      }
+      .hover-sub-menu:hover > .sub-menu {
+          display: block;
+      }
+</style>
+<body>
+<div class="page-wrapper">
+  <!-- Begin Header-->
+  <header th:replace="layout/header :: header"></header>
+  <!-- End Header -->
+
+  <main class="main">
+    <div class="modal-content" style="padding: 20px 0px;">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="icon-close"></i></span>
+        </button>
+
+        <div class="form-box">
+          <div class="form-tab">
+            <ul class="nav nav-pills nav-fill nav-border-anim" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link" href="/logon">Đăng nhập</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link scroll-link-cus active" href="/register">Đăng ký</a>
+              </li>
+            </ul>
+              <div class="tab-pane fade show active" id="register" role="tabpanel" aria-labelledby="register-tab">
+                <form action="/register" method="post" th:object="${user}">
+                  <div class="form-group">
+                    <label for="register-email">Tên đăng nhập *</label>
+                    <input type="text" class="form-control" id="register-email" th:field="*{username}" required="">
+                  </div><!-- End .form-group -->
+
+                  <div class="form-group">
+                    <label for="register-password">Mật khẩu *</label>
+                    <input type="password" class="form-control" id="register-password" th:field="*{password}" required="">
+                  </div><!-- End .form-group -->
+
+                  <div class="form-group">
+                    <label for="register-email">Họ và tên: *</label>
+                    <input type="text" class="form-control" id="register-email" th:field="*{fullName}" >
+                  </div><!-- End .form-group -->
+
+                  <div class="form-group">
+                    <label for="register-email">SĐT</label>
+                    <input type="text" class="form-control" id="register-email" th:field="*{phoneNumber}">
+                  </div><!-- End .form-group -->
+
+                  <div class="form-group">
+                    <label for="register-password">Địa chỉ:</label>
+                    <input type="text" class="form-control" id="register-password" th:field="*{address}">
+                  </div><!-- End .form-group -->
+
+                  <div class="form-group">
+                    <label for="register-password">Email:</label>
+                    <input type="email" class="form-control" id="register-password" th:field="*{email}">
+                  </div><!-- End .form-group -->
+
+                  <div class="form-footer">
+                    <button type="submit" class="btn btn-outline-primary-2">
+                      <span>ĐĂNG KÝ</span>
+                      <i class="icon-long-arrow-right"></i>
+                    </button>
+
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="register-policy" >
+                      <label class="custom-control-label" for="register-policy">Tôi đồng ý với <a href="#">điểu khoản sử dụng</a> *</label>
+                    </div><!-- End .custom-checkbox -->
+                  </div><!-- End .form-footer -->
+                  <div th:if="${error}" >
+                    <p th:text="${error}" style="color: red;"></p>
+                  </div>
+                </form>
+              </div><!-- .End .tab-pane -->
+            </div><!-- End .tab-content -->
+          </div><!-- End .form-tab -->
+        </div><!-- End .form-box -->
+      </div><!-- End .modal-body -->
+    </div>
+
+  </main><!-- End .main -->
+
+  <!-- Begin Footer    -->
+  <footer th:replace="layout/footer :: footer"></footer>
+  <!-- End Footer -->
+</div><!-- End .page-wrapper -->
+
+<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+<div th:replace="layout/tag_script :: script"></div>
+
+</body>
+<!-- Mirrored from portotheme.com/html/molla/index-4.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Jan 2024 02:55:58 GMT -->
+</html>

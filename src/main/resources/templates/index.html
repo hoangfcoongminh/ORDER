@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security6">
+
+<head th:replace="layout/tag_head :: head"></head>
+<style>
+  .menu-bar > li {
+          position: relative;
+      }
+  .sub-menu {
+          display: none;
+          position: absolute;
+          min-width: 180px;
+          top: 51px;
+          left: 40px;
+      }
+      .sub-menu > li {
+          list-style: none;
+          height: 50px;
+          width: 180px;
+          height: 50px;
+          line-height: 50px;
+
+      }
+      .sub-menu > li:hover {
+
+          background-color: rgb(5, 131, 45);
+      }
+      .sub-menu >li:hover a {
+          color: white;
+      }
+      .sub-menu > li > a{
+          text-decoration: none;
+      }
+      .hover-sub-menu:hover > .sub-menu {
+          display: block;
+      }
+</style>
+<body>
+<div class="page-wrapper">
+  <!-- Begin Header-->
+  <header th:replace="layout/header :: header"></header>
+  <!-- End Header -->
+
+  <main class="main">
+    <div th:replace="layout/slide :: slide"></div>
+    <!-- End .intro-slider-container -->
+    <div class="container for-you">
+      <!--            <div class="heading heading-flex mb-3">-->
+      <!--                <div class="heading-left">-->
+      <!--                    <h2 class="title">Recommendation For You</h2>&lt;!&ndash; End .title &ndash;&gt;-->
+      <!--                </div>&lt;!&ndash; End .heading-left &ndash;&gt;-->
+
+      <!--                <div class="heading-right">-->
+      <!--                    <a href="#" class="title-link">View All Recommendadion <i class="icon-long-arrow-right"></i></a>-->
+      <!--                </div>&lt;!&ndash; End .heading-right &ndash;&gt;-->
+      <!--            </div>&lt;!&ndash; End .heading &ndash;&gt;-->
+
+<!--      <div class="products">-->
+<!--        <div class="row justify-content-center">-->
+
+<!--          <div class="col-6 col-md-4 col-lg-3" th:each="field : ${fieldList}">-->
+<!--            <div class="product product-2">-->
+<!--              <a th:href="@{/detail-field/{fieldId}(fieldId=${field.fieldId})}">-->
+<!--                <img th:src="@{'/assets/upload/' + ${field.fieldImage}}"-->
+<!--                     alt="Product image"-->
+<!--                     class="product-image" style="border-radius: 10px;">-->
+<!--              </a>-->
+
+<!--              &lt;!&ndash;                                <div class="product-action">&ndash;&gt;-->
+<!--              &lt;!&ndash;                                    <a href="#" class="btn-product btn-cart"&ndash;&gt;-->
+<!--              &lt;!&ndash;                                       title="Add to cart"><span>Add to cart</span></a>&ndash;&gt;-->
+<!--              &lt;!&ndash;                                    <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>&ndash;&gt;-->
+<!--              &lt;!&ndash;                                </div>&lt;!&ndash; End .product-action &ndash;&gt;&ndash;&gt;-->
+
+<!--              <div class="product-body">-->
+<!--                <div class="product-cat">-->
+<!--                  <a href="#" th:text="${field.fieldType.typeName}" style="font-weight: bold;"></a>-->
+<!--                </div>&lt;!&ndash; End .product-cat &ndash;&gt;-->
+<!--                <h3 class="product-title"><a th:href="@{/detail-field/{fieldId}(fieldId=${field.fieldId})}"-->
+<!--                                             th:text="${field.fieldName}"></a></h3>&lt;!&ndash; End .product-title &ndash;&gt;-->
+<!--                <div class="product-price">-->
+<!--                  <p class="product-price" style="padding-right: 5px;">Địa chỉ:</p>-->
+<!--                  <p class="product-price" th:text="${field.address}"></p>-->
+<!--                </div>-->
+<!--                <div class="ratings-container">-->
+<!--                  <div class="ratings">-->
+<!--                    <div class="ratings-val" style="width: 60%;"></div>&lt;!&ndash; End .ratings-val &ndash;&gt;-->
+<!--                  </div>&lt;!&ndash; End .ratings &ndash;&gt;-->
+<!--                  <span class="ratings-text">( 2 Reviews )</span>-->
+<!--                </div>&lt;!&ndash; End .rating-container &ndash;&gt;-->
+<!--              </div>&lt;!&ndash; End .product-body &ndash;&gt;-->
+<!--            </div>&lt;!&ndash; End .product &ndash;&gt;-->
+<!--          </div>&lt;!&ndash; End .col-sm-6 col-md-4 col-lg-3 &ndash;&gt;-->
+<!--        </div>&lt;!&ndash; End .row &ndash;&gt;-->
+<!--      </div>&lt;!&ndash; End .products &ndash;&gt;-->
+    </div><!-- End .container -->
+  </main><!-- End .main -->
+
+  <!-- Begin Footer    -->
+  <footer th:replace="layout/footer :: footer"></footer>
+  <!-- End Footer -->
+</div><!-- End .page-wrapper -->
+
+<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+<div th:replace="layout/tag_script :: script"></div>
+
+</body>
+
+<!-- Mirrored from portotheme.com/html/molla/index-4.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Jan 2024 02:55:58 GMT -->
+</html>
