@@ -13,8 +13,8 @@ public class TimeSlot {
     @Column(name = "timeSlot_id")
     private Integer timeSlotId;
 
-    @Column(name = "dayOfWeek", nullable = false, length = 30)
-    private String dayOfWeek;
+    @Column(name = "pricePerHour")
+    private Integer pricePerHour;
 
     @Column(name = "startTime", nullable = false)
     private Time startTime;
@@ -28,9 +28,9 @@ public class TimeSlot {
     public TimeSlot() {
     }
 
-    public TimeSlot(Integer timeSlotId, String dayOfWeek, Time startTime, Time endTime, List<Field_TimeSlot> fieldTimeslots) {
+    public TimeSlot(Integer timeSlotId, Integer pricePerHour, Time startTime, Time endTime, List<Field_TimeSlot> fieldTimeslots) {
         this.timeSlotId = timeSlotId;
-        this.dayOfWeek = dayOfWeek;
+        this.pricePerHour = pricePerHour;
         this.startTime = startTime;
         this.endTime = endTime;
         this.fieldTimeslots = fieldTimeslots;
@@ -44,12 +44,12 @@ public class TimeSlot {
         this.timeSlotId = timeSlotId;
     }
 
-    public String getDayOfWeek() {
-        return dayOfWeek;
+    public Integer getPricePerHour() {
+        return pricePerHour;
     }
 
-    public void setDayOfWeek(String dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
+    public void setPricePerHour(Integer pricePerHour) {
+        this.pricePerHour = pricePerHour;
     }
 
     public Time getStartTime() {

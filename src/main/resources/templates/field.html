@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security6">
 
 <head th:replace="layout/tag_head :: head"></head>
 <style>
@@ -78,9 +78,8 @@
                                 </div><!-- End .product-cat -->
                                 <h3 class="product-title"><a th:href="@{/detail-field/{fieldId}(fieldId=${field.fieldId})}"
                                                              th:text="${field.fieldName}"></a></h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    <p class="product-price" style="padding-right: 5px;">Địa chỉ:</p>
-                                    <p class="product-price" th:text="${field.address}"></p>
+                                <div class="product-price" style="padding-top: 8px;">
+                                    <p class="product-price" th:text="'Địa chỉ: ' + ${field.address}"></p>
                                 </div>
                                 <div class="ratings-container">
                                     <div class="ratings">

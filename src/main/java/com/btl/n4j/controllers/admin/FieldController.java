@@ -71,7 +71,7 @@ public class FieldController {
         return "admin/field/edit";
     }
 
-    @PostMapping("/edit-field/{fieldId}")
+    @PostMapping("/edit-field")
     public String update(@ModelAttribute("field") Field field, @RequestParam(value = "fileImage", required = false) MultipartFile file) {
 
         try {

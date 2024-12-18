@@ -17,9 +17,6 @@ public class Field {
     @Column(name = "fieldImage", length = 100)
     private String fieldImage;
 
-    @Column(name = "status", length = 100)
-    private String status;
-
     @Column(name = "address", length = 100)
     private String address;
 
@@ -33,11 +30,10 @@ public class Field {
     public Field() {
     }
 
-    public Field(Integer fieldId, String fieldName, String status, String fieldImage, String address, FieldType fieldType, List<Field_TimeSlot> fieldTimeslots) {
+    public Field(Integer fieldId, String fieldName, String fieldImage, String address, FieldType fieldType, List<Field_TimeSlot> fieldTimeslots) {
         this.fieldId = fieldId;
         this.fieldName = fieldName;
         this.fieldImage = fieldImage;
-        this.status = status;
         this.address = address;
         this.fieldType = fieldType;
         this.fieldTimeslots = fieldTimeslots;
@@ -65,14 +61,6 @@ public class Field {
 
     public void setFieldImage(String fieldImage) {
         this.fieldImage = fieldImage;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public String getAddress() {

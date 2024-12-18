@@ -12,9 +12,6 @@ public class Field_TimeSlot {
     @Column(name = "field_timeslot_id")
     private Integer fieldTimeslotId;
 
-    @Column(name = "pricePerHour")
-    private Integer pricePerHour;
-
     @Column(name = "available")
     private Boolean available;
 
@@ -32,9 +29,8 @@ public class Field_TimeSlot {
     public Field_TimeSlot() {
     }
 
-    public Field_TimeSlot(Integer fieldTimeslotId, Integer pricePerHour, Boolean available, Field field, TimeSlot timeSlot, List<Booking> bookings) {
+    public Field_TimeSlot(Integer fieldTimeslotId, Boolean available, Field field, TimeSlot timeSlot, List<Booking> bookings) {
         this.fieldTimeslotId = fieldTimeslotId;
-        this.pricePerHour = pricePerHour;
         this.available = available;
         this.field = field;
         this.timeSlot = timeSlot;
@@ -47,14 +43,6 @@ public class Field_TimeSlot {
 
     public void setFieldTimeslotId(Integer fieldTimeslotId) {
         this.fieldTimeslotId = fieldTimeslotId;
-    }
-
-    public Integer getPricePerHour() {
-        return pricePerHour;
-    }
-
-    public void setPricePerHour(Integer pricePerHour) {
-        this.pricePerHour = pricePerHour;
     }
 
     public Boolean getAvailable() {

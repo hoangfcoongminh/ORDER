@@ -69,10 +69,6 @@
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                                                 colspan="1" aria-label="Platform(s): activate to sort column ascending"
-                                                style="width: 320.922px;">Status
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
-                                                colspan="1" aria-label="Platform(s): activate to sort column ascending"
                                                 style="width: 320.922px;">Address
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
@@ -88,7 +84,6 @@
                                             <td>
                                                 <img th:src="@{'/assets/upload/' + ${field.fieldImage}}" width="200">
                                             </td>
-                                            <td th:text="${field.status}"></td>
                                             <td th:text="${field.address}"></td>
                                             <td th:text="${field.fieldType.typeName}" style="font-weight: bold;"></td>
                                             <td>
@@ -102,7 +97,6 @@
                                         <th rowspan="1" colspan="1">Field ID</th>
                                         <th rowspan="1" colspan="1">Field Name</th>
                                         <th rowspan="1" colspan="1">Field Image</th>
-                                        <th rowspan="1" colspan="1">Status</th>
                                         <th rowspan="1" colspan="1">Address</th>
                                         <th rowspan="1" colspan="1">Field Type Name</th>
                                     </tr>

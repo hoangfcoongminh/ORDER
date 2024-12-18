@@ -3,9 +3,11 @@ package com.btl.n4j.controllers.user;
 import com.btl.n4j.models.Category;
 import com.btl.n4j.models.Field;
 import com.btl.n4j.models.FieldType;
+import com.btl.n4j.models.User;
 import com.btl.n4j.services.CategoryService;
 import com.btl.n4j.services.FieldService;
 import com.btl.n4j.services.FieldTypeService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -27,11 +29,13 @@ public class HomeController {
     private FieldTypeService fieldTypeService;
 
     @GetMapping()
-    public String index(Model model) {
+    public String index(HttpSession session, Model model) {
 
         List<FieldType> fieldTypeList = this.fieldTypeService.getAll();
         model.addAttribute("fieldTypeList", fieldTypeList);
 
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        model.addAttribute("loggedInUser", loggedInUser); // Thông tin người dùng hiện tại (nếu có)
         return "index";
     }
 

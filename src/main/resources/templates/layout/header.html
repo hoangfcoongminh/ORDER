@@ -1,15 +1,14 @@
-
-<header class="header header-intro-clearance header-4" th:fragment="header">
+<header class="header header-intro-clearance header-4" style="background-color: rgb(159 237 175 / 80%);" th:fragment="header">
     <div class="header-top">
         <div class="container">
             <div class="header-left">
             </div><!-- End .header-left -->
 
-            <div class="header-right">
+            <div class="header-right" th:if="${loggedInUser == null}">
                 <ul class="top-menu">
                     <li>
                         <ul>
-                            <li><a href="#signin-modal" data-toggle="modal">Sign in / Sign up</a></li>
+                            <li><a th:href="@{/logon}">Sign in / Sign up</a></li>
                         </ul>
                     </li>
                 </ul><!-- End .top-menu -->
@@ -43,8 +42,7 @@
             <div class="header-right">
                 <div class="dropdown compare-dropdown">
                     <div class="dropdown cart-dropdown">
-                        <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true"
-                           aria-expanded="false" data-display="static">
+                        <a href="/cart" class="dropdown-toggle">
                             <div class="icon">
                                 <i class="icon-shopping-cart"></i>
                             </div>
@@ -53,6 +51,12 @@
                     </div><!-- End .cart-dropdown -->
                 </div><!-- End .header-right -->
             </div><!-- End .container -->
+
+            <div th:if="${loggedInUser != null}">
+                <span>Xin chào, <span th:text="${loggedInUser.fullName}"></span>!</span>
+                <a href="/logout">Đăng Xuất</a>
+            </div>
+
         </div><!-- End .header-middle -->
 
         <div class="header-bottom sticky-header">
@@ -65,9 +69,9 @@
                             </li>
                             <li class="hover-sub-menu">
                                 <a href="#" class="" style="font-size: 16px; width: 150px; text-align: center;">Loại sân</a>
-                                <ul class="sub-menu" style="font-size: 16px; display: none; position: absolute; min-width: 180px;
-                                                    top: 51px; left: 0px;">
-                                    <li th:each="f : ${fieldTypeList}">
+                                <ul class="sub-menu" style="font-size: 16px; display: none; position: absolute; min-width: 200px;
+                                                    top: 51px; left: 0px; box-shadow: rgba(0, 0, 0, 0.2) 0px 0 16px 2px; border-radius: 4px;">
+                                    <li th:each="f : ${fieldTypeList}" style="width: 100%;">
                                         <a th:href="@{/fieldtype/{id}(id=${f.fieldTypeId})}" th:text="${f.typeName}" style="font-size: 16px;"></a>
                                     </li>
                                 </ul>
