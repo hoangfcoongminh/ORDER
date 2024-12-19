@@ -29,9 +29,10 @@
                     <div class="dropdown">
                         <a href="#" class="dropbtn"><p style="font-size: 18px;">
                             <span><i class="icon-user"></i></span> Xin chào <span
-                                sec:authentication="principal.username"></span>!</p>
+                                sec:authentication="principal.fullName"></span>!</p>
                         </a>
                         <div class="dropdown-content">
+                            <a th:href="@{/infor-user/{username}(username=${#authentication.principal.username})}">Tài khoản của tôi</a>
                             <a href="/logout">Đăng xuất</a>
                         </div>
                     </div>

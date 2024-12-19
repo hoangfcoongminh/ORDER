@@ -129,33 +129,33 @@
               <div class="tab-pane fade show active" id="register" role="tabpanel" aria-labelledby="register-tab">
                 <form action="/register" method="post" th:object="${user}">
                   <div class="form-group">
-                    <label for="register-email">Tên đăng nhập *</label>
-                    <input type="text" class="form-control" id="register-email" th:field="*{username}" required="">
+                    <label>Tên đăng nhập *</label>
+                    <input type="text" class="form-control" th:field="*{username}" required="">
                   </div><!-- End .form-group -->
 
                   <div class="form-group">
-                    <label for="register-password">Mật khẩu *</label>
-                    <input type="password" class="form-control" id="register-password" th:field="*{password}" required="">
+                    <label>Mật khẩu *</label>
+                    <input type="password" class="form-control" th:field="*{password}" required="">
                   </div><!-- End .form-group -->
 
                   <div class="form-group">
-                    <label for="register-email">Họ và tên: *</label>
-                    <input type="text" class="form-control" id="register-email" th:field="*{fullName}" >
+                    <label>Họ và tên: *</label>
+                    <input type="text" class="form-control" th:field="*{fullName}" >
                   </div><!-- End .form-group -->
 
                   <div class="form-group">
-                    <label for="register-email">SĐT</label>
-                    <input type="text" class="form-control" id="register-email" th:field="*{phoneNumber}">
+                    <label>SĐT</label>
+                    <input type="text" class="form-control" th:field="*{phoneNumber}">
                   </div><!-- End .form-group -->
 
                   <div class="form-group">
-                    <label for="register-password">Địa chỉ:</label>
-                    <input type="text" class="form-control" id="register-password" th:field="*{address}">
+                    <label>Địa chỉ:</label>
+                    <input type="text" class="form-control" th:field="*{address}">
                   </div><!-- End .form-group -->
 
                   <div class="form-group">
-                    <label for="register-password">Email:</label>
-                    <input type="email" class="form-control" id="register-password" th:field="*{email}">
+                    <label>Email:</label>
+                    <input type="email" class="form-control" th:field="*{email}">
                   </div><!-- End .form-group -->
 
                   <div class="form-footer">
