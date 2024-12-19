@@ -120,26 +120,11 @@
                                 <div class="col-lg-9">
                                     <h2 class="checkout-title">THÔNG TIN CÁ NHÂN</h2><!-- End .checkout-title -->
                                     <div class="row">
-                                        <div class="col-sm-6">
-                                            <label>Họ tên *</label>
-                                            <input type="text" class="form-control" th:field="*{user}" required="">
-                                        </div><!-- End .col-sm-6 -->
-
-                                        <div class="col-sm-6">
-                                            <label>SĐT *</label>
-                                            <input type="text" th:field="*{user.phoneNumber}" class="form-control" required="">
-                                        </div>
-
-                                        <label>Email</label>
-                                        <input type="text" th:field="*{user.email}" class="form-control">
-
-                                        <label>Địa chỉ *</label>
-                                        <input type="text" class="form-control"
-                                               placeholder="Số nhà, tên đường, quận/huyện, tỉnh/thành phố" th:field="*{user.address}" required="">
+                                        <img th:src="@{'/assets/upload/' + ${fieldTimeSlot.field.fieldImage}}" style="width: 100%;">
 
                                         <label>Ghi chú</label>
                                         <textarea class="form-control" cols="30" rows="4"
-                                                  placeholder="Ghi chú cho sân...." th:field="*{note}"></textarea>
+                                                  placeholder="Ghi chú cho sân...." name="note"></textarea>
                                     </div>
                                 </div><!-- End .col-lg-9 -->
                                 <aside class="col-lg-3">
@@ -194,16 +179,15 @@
                                             </div><!-- End .card -->
                                         </div><!-- End .accordion -->
 
+                                        <input type="hidden" th:field="*{user}">
+                                        <input type="hidden" th:field="*{fieldTimeslot}">
+                                        <input type="hidden" name="dateStr" th:value="${date}">  <!-- Thêm dòng này -->
                                         <input type="hidden" th:value="${booking.fieldTimeslot.timeSlot.pricePerHour}" th:field="*{totalPrice}">
 
                                         <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
                                             <span class="btn-text">ĐẶT SÂN</span>
                                             <span class="btn-hover-text">TIẾN HÀNH ĐẶT</span>
                                         </button>
-
-                                        <div th:if="${fieldTimeSlot}" class="error-message">
-                                            <p class="text-danger" th:text="${fieldTimeSlot}"></p>
-                                        </div>
                                     </div><!-- End .summary -->
                                 </aside><!-- End .col-lg-3 -->
                             </div><!-- End .row -->
@@ -212,9 +196,6 @@
                 </div><!-- End .checkout -->
             </div>
         </div><!-- End .container -->
-        <div th:if="${fieldTimeSlot}" class="error-message">
-            <p class="text-danger" th:text="${fieldTimeSlot}"></p>
-        </div>
     </main><!-- End .main -->
 
     <!-- Begin Footer    -->

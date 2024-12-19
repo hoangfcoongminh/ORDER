@@ -54,11 +54,11 @@
                     <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1"
                         colspan="1" aria-sort="ascending"
                         aria-label="Rendering engine: activate to sort column descending"
-                        style="width: 296.219px;">Customer Fullname
+                        style="width: 296.219px;">Booking ID
                     </th>
                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                         colspan="1" aria-label="Browser: activate to sort column ascending"
-                        style="width: 360.5px;">Phone Number
+                        style="width: 360.5px;">Customer Name
                     </th>
                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                         colspan="1" aria-label="Platform(s): activate to sort column ascending"
@@ -91,12 +91,18 @@
                     <td class="sorting_1" th:text="${b.bookingId}" style="font-weight: bold;"></td>
 <!--                    <td th:text="${b.fieldTimeslot.fieldName}"></td>-->
                     <td th:text="${b.user.fullName}"></td>
+                    <td th:text="${b.fieldTimeslot.field.fieldName}"></td>
+                    <td th:text="${b.fieldTimeslot.field.address}"></td>
+                    <td th:text="${#dates.format(b.fieldTimeslot.timeSlot.startTime, 'HH:mm')} + ' - ' + ${#dates.format(b.fieldTimeslot.timeSlot.endTime, 'HH:mm')}"></td>
+                    <td th:text="${b.totalPrice}"></td>
+                    <td th:text="${#dates.format(b.date, 'dd-MM-yyyy')}"></td>
+                    <td class="sorting_1" th:text="${b.note}" style="font-weight: bold;"></td>
                   </tr>
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th rowspan="1" colspan="1">Customer Fullname</th>
-                    <th rowspan="1" colspan="1">Phone Number</th>
+                    <th rowspan="1" colspan="1">Booking ID</th>
+                    <th rowspan="1" colspan="1">Customer Name</th>
                     <th rowspan="1" colspan="1">Field Name</th>
                     <th rowspan="1" colspan="1">Field Address</th>
                     <th rowspan="1" colspan="1">Time</th>

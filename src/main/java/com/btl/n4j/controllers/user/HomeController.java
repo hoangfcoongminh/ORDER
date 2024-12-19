@@ -54,6 +54,8 @@ public class HomeController {
             List<Field> fieldList = this.fieldService.searchField(keyword);
             model.addAttribute("fieldList", fieldList);
 
+            model.addAttribute("keyword", keyword);
+
             return "search";
         }
         return "index";

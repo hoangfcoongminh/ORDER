@@ -39,6 +39,9 @@ public class TimeSlotController {
     @PostMapping("/add-timeslot")
     public String save(@ModelAttribute("timeSlot") TimeSlot timeSlot, @RequestParam("startTime") String startTimeStr, @RequestParam("endTime") String endTimeStr) {
 
+        startTimeStr += ":00";
+        endTimeStr += ":00";
+
         Time startTime = Time.valueOf(startTimeStr);
         Time endTime = Time.valueOf(endTimeStr);
 
@@ -61,7 +64,16 @@ public class TimeSlotController {
     }
 
     @PostMapping("/edit-timeslot")
-    public String update(@ModelAttribute("timeSlot") TimeSlot timeSlot) {
+    public String update(@ModelAttribute("timeSlot") TimeSlot timeSlot, @RequestParam("startTime") String startTimeStr, @RequestParam("endTime") String endTimeStr) {
+
+        startTimeStr += ":00";
+        endTimeStr += ":00";
+
+        Time startTime = Time.valueOf(startTimeStr);
+        Time endTime = Time.valueOf(endTimeStr);
+
+        timeSlot.setStartTime(startTime);
+        timeSlot.setEndTime(endTime);
 
         if (this.timeSlotService.update(timeSlot)) {
             return "redirect:/admin/timeslot";

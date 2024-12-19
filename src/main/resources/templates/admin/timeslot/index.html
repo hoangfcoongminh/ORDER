@@ -61,7 +61,7 @@
                     </th>
                     <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1"
                         colspan="1" aria-sort="ascending" aria-label="Browser: activate to sort column ascending"
-                        style="width: 360.5px;">Price Per Hour
+                        style="width: 360.5px;">Price
                     </th>
                     <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1"
                         colspan="1" aria-label="Browser: activate to sort column ascending"
@@ -77,8 +77,8 @@
                   <tr role="row" class="even" th:each="t : ${timeSlotList}">
                     <td class="sorting_1" th:text="${t.timeSlotId}" style="font-weight: bold;"></td>
                     <td th:text="${t.pricePerHour}"></td>
-                    <td th:text="${t.startTime}"></td>
-                    <td th:text="${t.endTime}"></td>
+                    <td th:text="${#dates.format(t.startTime, 'HH:mm')}"></td>
+                    <td th:text="${#dates.format(t.endTime, 'HH:mm')}"></td>
                     <td>
                       <a th:href="@{/admin/edit-timeslot/{id}(id=${t.timeSlotId})}" class="btn btn-primary">Edit</a>
                       <a th:href="@{/admin/delete-timeslot/{id}(id=${t.timeSlotId})}" class="btn btn-danger" onclick="return confirm('Bạn chắc chắn muốn xóa mục này chứ?')">Delete</a>
@@ -88,7 +88,7 @@
                   <tfoot>
                   <tr>
                     <th rowspan="1" colspan="1">Time Slot ID</th>
-                    <th rowspan="1" colspan="1">Price Per Hour</th>
+                    <th rowspan="1" colspan="1">Price</th>
                     <th rowspan="1" colspan="1">Start Time</th>
                     <th rowspan="1" colspan="1">End Time</th>
                   </tr>

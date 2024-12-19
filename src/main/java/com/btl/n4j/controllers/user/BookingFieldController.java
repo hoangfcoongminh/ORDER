@@ -50,8 +50,6 @@ public class BookingFieldController {
 
         Field_TimeSlot fieldTimeSlot = this.fieldTimeSlotService.findByFieldAndTimeId(fieldId, timeSlotId);
 
-        this.fieldTimeSlotService.createNew(fieldTimeSlot);
-
         booking.setFieldTimeslot(fieldTimeSlot);
 
         List<FieldType> fieldTypeList = this.fieldTypeService.getAll();
@@ -68,12 +66,39 @@ public class BookingFieldController {
     }
 
     @PostMapping("/booking-field")
-    public String add(@ModelAttribute("booking") Booking booking, Model model) {
-        if(this.bookingService.createNew(booking)) {
-            return "redirect:/";
-        } else {
-            model.addAttribute("error", "Chưa đặt được sân!");
-            return "/booking";
+    public String add(@ModelAttribute("booking") Booking booking,
+                      @RequestParam("dateStr") String dateStr,  // Thêm parameter này
+                      Model model) {
+        try {
+            // Convert String to java.sql.Date
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            java.util.Date parsedDate = formatter.parse(dateStr);
+            java.sql.Date sqlDate = new java.sql.Date(parsedDate.getTime());
+            booking.setDate(sqlDate);
+
+            // Lấy lại thông tin user từ security context
+            CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user = userDetails.getUser();
+            booking.setUser(user);
+
+            // Lấy lại đầy đủ thông tin fieldTimeSlot
+            Field_TimeSlot fullFieldTimeSlot = fieldTimeSlotService.findByID(booking.getFieldTimeslot().getFieldTimeslotId());
+            booking.setFieldTimeslot(fullFieldTimeSlot);
+
+            // Set lại total price
+            booking.setTotalPrice(fullFieldTimeSlot.getTimeSlot().getPricePerHour());
+
+            if(this.bookingService.createNew(booking)) {
+                return "redirect:/";
+            } else {
+                model.addAttribute("error", "Chưa đặt được sân!");
+                return "booking";
+            }
+        } catch (Exception e) {
+            System.err.println("Lỗi khi lưu booking: " + e.getMessage());
+            e.printStackTrace();
+            model.addAttribute("error", "Có lỗi xảy ra: " + e.getMessage());
+            return "booking";
         }
     }
 }
