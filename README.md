@@ -2,7 +2,7 @@ CÀI ĐẶT CHƯƠNG TRÌNH:
 
 YÊU CẦU: JDK21 hoặc hơn, MySQL
 
-B1: Tạo database "n4j_database" trong cổng 3306 MySQL
+B1: Tạo database "order_database" trong cổng 3306 MySQL
 
 B2: Chạy file sql để khởi tạo dữ liệu
 
