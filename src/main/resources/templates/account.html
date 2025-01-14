@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security6">
+
+<head th:replace="~{layout/tag_head :: head}"></head>
+<style>
+  .menu-bar > li {
+          position: relative;
+      }
+  .sub-menu {
+          display: none;
+          position: absolute;
+          min-width: 180px;
+          top: 51px;
+          left: 40px;
+      }
+      .sub-menu > li {
+          list-style: none;
+          height: 50px;
+          width: 180px;
+          height: 50px;
+          line-height: 50px;
+
+      }
+      .sub-menu > li:hover {
+
+          background-color: rgb(5, 131, 45);
+      }
+      .sub-menu >li:hover a {
+          color: white;
+      }
+      .sub-menu > li > a{
+          text-decoration: none;
+      }
+      .hover-sub-menu:hover > .sub-menu {
+          display: block;
+      }
+      /* Kiểu cho các mục dropdown */
+      .dropdown {
+          position: relative;
+          display: inline-block;
+      }
+
+      /* Kiểu cho menu dropdown */
+      .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #f9f9f9;
+          min-width: 160px;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 1;
+          border-radius: 6px;
+          font-size: 16px;
+      }
+
+          /* Kiểu cho các mục trong menu dropdown */
+          .dropdown-content a {
+              color: black;
+              margin: 0;
+              padding: 10px;
+              width: 200px;
+              text-decoration: none;
+              display: block;
+              text-align: left;
+          }
+
+      .dropdown {
+          padding: 8px;
+          border-radius: 8px;
+      }
+
+      /* Hiển thị menu dropdown khi di chuột vào */
+      .dropdown:hover .dropdown-content {
+          display: block;
+      }
+
+      /* Hiển thị submenu khi di chuột vào mục con */
+      .dropdown-submenu:hover .dropdown-content {
+          display: block;
+          left: 100%;
+          top: 5;
+      }
+
+      /* Đảm bảo submenu nằm ngang bên phải của mục chính */
+      .dropdown-submenu {
+          position: relative;
+      }
+
+      .dropdown-content a:hover {
+          background-color: #0172eb;
+          color: white;
+          display: block;
+          border-radius: 6px;
+      }
+
+      .navbar a:hover, .dropdown:hover .dropbtn {
+          background-color: #ddd;
+          color: black;
+      }
+  .nav-log:hover {
+    background-color: #60c0f5;
+  }
+  .nav-log:hover > a {
+    color: white;
+  }
+  .form-group > label {
+    font-size: 18px;
+    font-weight: 300;
+    color: black;
+  }
+  .form-group > input {
+    font-size: 16px;
+    color: black;
+    font-weight: 300;
+  }
+</style>
+<body>
+<div class="page-wrapper">
+  <!-- Begin Header-->
+  <header th:replace="~{layout/header :: header}"></header>
+  <!-- End Header -->
+
+  <main class="main">
+    <div class="modal-content" style="padding: 20px 0px;">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="icon-close"></i></span>
+        </button>
+
+        <div class="form-box">
+          <div class="form-tab">
+<!--            <ul class="nav nav-pills nav-fill nav-border-anim" role="tablist">-->
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" href="/logon">Đăng nhập</a>-->
+<!--              </li>-->
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link scroll-link-cus active" href="/register">Đăng ký</a>-->
+<!--              </li>-->
+<!--            </ul>-->
+            <h3>THÔNG TIN TÀI KHOẢN</h3>
+            <div class="tab-pane fade show active" id="register" role="tabpanel" aria-labelledby="register-tab">
+              <form action="/account/info/update" method="post" th:object="${user}">
+                <div class="form-group">
+                  <label for="register-email">Tên đăng nhập</label>
+                  <input type="text" class="form-control" id="register-email" th:field="*{username}" readonly>
+                </div><!-- End .form-group -->
+
+<!--                <div class="form-group">-->
+<!--                  <label for="register-password">Mật khẩu *</label>-->
+<!--                  <input type="password" class="form-control" id="register-password" th:field="*{password}" required="">-->
+<!--                </div>&lt;!&ndash; End .form-group &ndash;&gt;-->
+
+                <div class="form-group">
+                  <label for="register-email">Họ và tên</label>
+                  <input type="text" class="form-control" id="register-email" th:field="*{fullName}" >
+                </div><!-- End .form-group -->
+
+                <div class="form-group">
+                  <label for="register-email">Giới tính</label>
+                  <input type="text" class="form-control" id="register-email" th:field="*{gender}" >
+                </div><!-- End .form-group -->
+
+                <div class="form-group">
+                  <label for="register-email">Ngày sinh</label>
+                  <input type="text" class="form-control" id="register-email" th:field="*{dateOfBirth}" >
+                </div><!-- End .form-group -->
+
+                <div class="form-group">
+                  <label for="register-email">SĐT</label>
+                  <input type="text" class="form-control" id="register-email" th:field="*{phoneNumber}">
+                </div><!-- End .form-group -->
+
+                <div class="form-group">
+                  <label for="register-password">Địa chỉ</label>
+                  <input type="text" class="form-control" id="register-password" th:field="*{address}">
+                </div><!-- End .form-group -->
+
+                <div class="form-group">
+                  <label for="register-password">Email</label>
+                  <input type="email" class="form-control" id="register-password" th:field="*{email}">
+                </div><!-- End .form-group -->
+
+                <div class="form-footer">
+                  <button type="submit" class="btn btn-outline-primary-2">
+                    <span>CẬP NHẬT THÔNG TIN</span>
+                    <i class="icon-long-arrow-right"></i>
+                  </button>
+                </div><!-- End .form-footer -->
+                <div th:if="${errorMess}" >
+                  <p th:text="${errorMess}" style="color: red;"></p>
+                </div>
+                <div th:if="${successMess}" >
+                  <p th:text="${successMess}" style="color: red;"></p>
+                </div>
+              </form>
+            </div><!-- .End .tab-pane -->
+          </div><!-- End .tab-content -->
+        </div><!-- End .form-tab -->
+      </div><!-- End .form-box -->
+    </div><!-- End .modal-body -->
+</div>
+
+</main><!-- End .main -->
+
+<!-- Begin Footer    -->
+<footer th:replace="~{layout/footer :: footer}"></footer>
+<!-- End Footer -->
+</div><!-- End .page-wrapper -->
+
+<button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+<div th:replace="~{layout/tag_script :: script}"></div>
+
+</body>
+<!-- Mirrored from portotheme.com/html/molla/index-4.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 19 Jan 2024 02:55:58 GMT -->
+</html>
