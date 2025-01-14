@@ -144,11 +144,10 @@
                                             <span>ĐĂNG NHẬP</span>
                                             <i class="icon-long-arrow-right"></i>
                                         </button>
-                                        <div th:if="${error}" >
-                                            <p th:text="${error}" class="text-danger" style="color: red;"></p>
+                                        <div>
+                                            <p th:text="${errorMess}" style="color: red;"></p>
                                         </div>
                                     </div><!-- End .form-footer -->
-
                                 </form>
                             </div><!-- .End .tab-pane -->
 

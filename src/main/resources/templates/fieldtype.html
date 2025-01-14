@@ -113,16 +113,6 @@
         <div th:replace="~{layout/slide :: slide}"></div>
         <!-- End .intro-slider-container -->
         <div class="container for-you" style="margin-top: 30px;">
-<!--            <div class="heading heading-flex mb-3">-->
-<!--                <div class="heading-left">-->
-<!--                    <h2 class="title">Recommendation For You</h2>&lt;!&ndash; End .title &ndash;&gt;-->
-<!--                </div>&lt;!&ndash; End .heading-left &ndash;&gt;-->
-
-<!--                <div class="heading-right">-->
-<!--                    <a href="#" class="title-link">View All Recommendadion <i class="icon-long-arrow-right"></i></a>-->
-<!--                </div>&lt;!&ndash; End .heading-right &ndash;&gt;-->
-<!--            </div>&lt;!&ndash; End .heading &ndash;&gt;-->
-
             <div class="products">
                 <div class="row justify-content-center">
                     <div class="col-6 col-md-4 col-lg-3" th:each="field : ${fieldList}">
@@ -130,7 +120,7 @@
                                 <a th:href="@{/detail-field/{fieldId}(fieldId=${field.fieldId})}">
                                     <img th:src="@{'/assets/upload/' + ${field.fieldImage}}"
                                          alt="Product image"
-                                         class="product-image" style="border-radius: 10px;">
+                                         style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
                                 </a>
 
 <!--                                <div class="product-action">-->

@@ -55,6 +55,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (user != null) {
             if (passwordEncoder.matches(password, user.getPassword())) {
                 return user;
+            } else {
+                return null;
             }
         }
         return null;

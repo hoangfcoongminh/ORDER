@@ -19,9 +19,6 @@ import java.util.List;
 public class HomeController {
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private FieldService fieldService;
 
     @Autowired
@@ -70,6 +67,9 @@ public class HomeController {
         List<Field> fieldList = this.fieldService.findByFieldTypeId(fieldTypedId);
         model.addAttribute("fieldList", fieldList);
 
+        String fieldTypeName = this.fieldTypeService.findByID(fieldTypedId).getTypeName();
+        model.addAttribute("fieldTypeName", fieldTypeName);
+
         return "search";
     }
 
@@ -97,6 +97,6 @@ public class HomeController {
         List<TimeSlot> timeSlotList = this.fieldTimeSlotService.findTimeSlotAvaibleByFieldId(fieldId);
         model.addAttribute("timeSlotList", timeSlotList);
 
-        return "detail";
+        return "field_detail";
     }
 }

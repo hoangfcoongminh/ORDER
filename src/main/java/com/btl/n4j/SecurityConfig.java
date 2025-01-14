@@ -55,7 +55,7 @@ public class SecurityConfig  {
             .userDetailsService(customUserDetailsService)
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(  auth -> auth
-                    .requestMatchers("/", "/field", "/fieldtype/**", "/search", "/detail-field/**", "/logon", "/register").permitAll()
+                    .requestMatchers("/", "/home", "/field", "/fieldtype/**", "/search", "/detail-field/**", "/logon", "/register").permitAll()
                     .requestMatchers("/admin/**").hasRole("ADMIN")
                     .anyRequest().authenticated()
             )

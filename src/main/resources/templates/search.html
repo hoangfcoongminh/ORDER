@@ -102,6 +102,15 @@
     .nav-log:hover > a {
       color: white;
     }
+    .h3-container {
+        display: flex; /* Sử dụng flexbox để sắp xếp các phần tử theo hàng ngang */
+        justify-content: flex-start; /* Tùy chỉnh khoảng cách giữa các thẻ */
+        gap: 10px; /* Khoảng cách giữa các thẻ (tuỳ chỉnh) */
+        margin-bottom: 10px;
+    }
+    .h3-container h3 {
+        text-align: center; /* Căn giữa nội dung bên trong thẻ */
+    }
 </style>
 <body>
 <div class="page-wrapper">
@@ -110,18 +119,16 @@
     <!-- End Header -->
 
     <main class="main">
-        <div th:replace="~{layout/slide :: slide}"></div>
-
+<!--        <div th:replace="~{layout/slide :: slide}"></div>-->
         <div class="container for-you" style="margin-top: 30px;">
-<!--            <div class="heading heading-flex mb-3">-->
-<!--                <div class="heading-left">-->
-<!--                    <h2 class="title">Recommendation For You</h2>&lt;!&ndash; End .title &ndash;&gt;-->
-<!--                </div>&lt;!&ndash; End .heading-left &ndash;&gt;-->
-
-<!--                <div class="heading-right">-->
-<!--                    <a href="#" class="title-link">View All Recommendadion <i class="icon-long-arrow-right"></i></a>-->
-<!--                </div>&lt;!&ndash; End .heading-right &ndash;&gt;-->
-<!--            </div>&lt;!&ndash; End .heading &ndash;&gt;-->
+            <div>
+                <div class="h3-container" th:if="${keyword != null and keyword != ''}">
+                    <h3>Kết quả tìm kiếm "</h3><h3 th:text="${keyword}"></h3><h3>"</h3>
+                </div>
+                <div th:if="${fieldTypeName != null and fieldTypeName != ''}">
+                    <h3 th:text="${fieldTypeName}"></h3>
+                </div>
+            </div>
 
             <div class="products">
                 <div class="row justify-content-center">
@@ -131,7 +138,7 @@
                                 <a th:href="@{/detail-field/{fieldId}(fieldId=${field.fieldId})}">
                                     <img th:src="@{'/assets/upload/' + ${field.fieldImage}}"
                                          alt="Product image"
-                                         class="product-image" style="border-radius: 10px;">
+                                         style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
                                 </a>
 
 <!--                                <div class="product-action">-->

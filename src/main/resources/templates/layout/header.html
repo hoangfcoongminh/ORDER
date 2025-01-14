@@ -1,11 +1,11 @@
-<header class="header header-intro-clearance header-4" style="background-color: rgb(159 237 175 / 80%);"
+<header class="header header-intro-clearance header-4" style="background-color: rgb(68 181 37 / 80%);"
         th:fragment="header">
     <div class="header-middle">
         <div class="container">
             <div class="header-left">
                 <a href="/" class="logo">
-                    <img th:src="@{/assets/front-end/images/n4j-logo.png}" alt="Logo" width="250"
-                         style="border-radius: 12px;">
+                    <img th:src="@{/assets/front-end/images/order-logo.png}" alt="Logo" width="150"
+                         style="border-radius: 8px;">
                 </a>
             </div><!-- End .header-left -->
 
@@ -27,9 +27,9 @@
             <div class="header-right">
                 <div sec:authorize="isAuthenticated()">
                     <div class="dropdown">
-                        <a href="#" class="dropbtn"><p style="font-size: 18px;">
+                        <a href="#" class="dropbtn"><p style="font-size: 22px; color: white; font-weight: 500;">
                             <span><i class="icon-user"></i></span> Xin chào <span
-                                sec:authentication="principal.username"></span>!</p>
+                                sec:authentication="principal.fullName"></span>!</p>
                         </a>
                         <div class="dropdown-content">
                             <a href="/logout">Đăng xuất</a>
@@ -37,8 +37,8 @@
                     </div>
                 </div>
                 <div sec:authorize="!isAuthenticated()">
-                    <div class="nav-log" style="background-color: #4c84e5; padding: 8px; border-radius: 6px;">
-                        <a th:href="@{/logon}" style="font-size: 16px; color: white; font-weight: 400;">Đăng nhập / Đăng ký</a>
+                    <div class="nav-log" style="background-color: #2767d7; padding: 2px 6px; border-radius: 6px;">
+                        <a th:href="@{/logon}" style="font-size: 18px; color: white; font-weight: 400;">Đăng nhập</a>
                     </div><!-- End .header-right -->
                 </div>
             </div><!-- End .container -->
@@ -50,7 +50,7 @@
                 <div class="header-center">
                     <nav class="main-nav">
                         <ul class="menu sf-arrows menu-bar">
-                            <li class="megamenu-container active">
+                            <li class="megamenu-container">
                                 <a href="/" class="" style="font-size: 16px; width: 150px; text-align: center;">Trang
                                     chủ</a>
                             </li>
@@ -70,12 +70,11 @@
                                    style="font-size: 16px; width: 150px; text-align: center;">Sân</a>
                             </li>
                             <li>
-                                <a href="#" class="" style="font-size: 16px; width: 150px; text-align: center;">Giới
-                                    thiệu</a>
+                                <a href="#" class="" style="font-size: 16px; width: 150px; text-align: center;">Liên hệ</a>
                             </li>
                             <li>
-                                <a href="#" class="" style="font-size: 16px; width: 150px; text-align: center;">Liên
-                                    hệ</a>
+                                <a th:if="${#authentication != null && #authorization.expression('isAuthenticated()')}"
+                                   th:href="@{/account/info/{id}(id=${#authentication.principal.user.userId})}" style="font-size: 16px; width: 150px; text-align: center;">Tài khoản của tôi</a>
                             </li>
                         </ul><!-- End .menu -->
                     </nav><!-- End .main-nav -->

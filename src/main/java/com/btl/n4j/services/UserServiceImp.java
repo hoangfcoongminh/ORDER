@@ -11,6 +11,18 @@ public class UserServiceImp implements UserService{
     @Autowired
     private UserRepository userRepository;
 
+
+    @Override
+    public User getUser(Integer userId) {
+        try {
+            User user = this.userRepository.findById(userId).get();
+            return user;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public Boolean update(User user) {
         try {

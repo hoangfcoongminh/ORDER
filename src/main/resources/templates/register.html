@@ -139,7 +139,7 @@
                   </div><!-- End .form-group -->
 
                   <div class="form-group">
-                    <label for="register-email">Họ và tên: *</label>
+                    <label for="register-email">Họ và tên *</label>
                     <input type="text" class="form-control" id="register-email" th:field="*{fullName}" >
                   </div><!-- End .form-group -->
 
@@ -149,12 +149,12 @@
                   </div><!-- End .form-group -->
 
                   <div class="form-group">
-                    <label for="register-password">Địa chỉ:</label>
+                    <label for="register-password">Địa chỉ</label>
                     <input type="text" class="form-control" id="register-password" th:field="*{address}">
                   </div><!-- End .form-group -->
 
                   <div class="form-group">
-                    <label for="register-password">Email:</label>
+                    <label for="register-password">Email</label>
                     <input type="email" class="form-control" id="register-password" th:field="*{email}">
                   </div><!-- End .form-group -->
 
@@ -166,11 +166,11 @@
 
                     <div class="custom-control custom-checkbox" style="cursor: pointer;">
                       <input type="checkbox" class="custom-control-input" id="register-policy" >
-                      <label class="custom-control-label" for="register-policy">Tôi đồng ý với <a href="#">điểu khoản sử dụng</a> *</label>
+                      <label class="custom-control-label">Tôi đồng ý với điểu khoản sử dụng *</label>
                     </div><!-- End .custom-checkbox -->
                   </div><!-- End .form-footer -->
-                  <div th:if="${error}" >
-                    <p th:text="${error}" style="color: red;"></p>
+                  <div th:if="${errorMess}" >
+                    <p th:text="${errorMess}" style="color: red;"></p>
                   </div>
                 </form>
               </div><!-- .End .tab-pane -->

@@ -110,13 +110,20 @@
     <!-- End Header -->
 
     <main class="main">
+        <div class="container for-you" style="display: flex; justify-content: center;">
+            <p style="color: black; font-weight: 600; font-size: 30px; text-align: center; padding: 20px 0px; width: 50%;text-transform: uppercase;">
+                Chào mừng đến với hệ thống các loại sân của chúng tôi!
+            </p>
+        </div>
+        <div class="container for-you" style="display: flex; justify-content: center;" sec:authorize="isAuthenticated()">
+            <p style="color: black; font-weight: 500; font-size: 30px; text-align: center; padding: 20px 0px; width: 50%;">Xin Chào, <span sec:authentication="principal.fullName"></span>!</p>
+        </div>
+
+        <hr class="mb-3">
         <div th:replace="~{layout/slide :: slide}"></div>
         <!-- End .intro-slider-container -->
         <div class="container for-you">
 
-            <div sec:authorize="isAuthenticated()">
-                <h1>Xin Chào, <span sec:authentication="principal.fullName"></span>!</h1>
-            </div>
             <div class="container bestsellers">
                 <hr class="mb-3">
                 <div class="heading">
@@ -157,10 +164,10 @@
                              style="transform: translate3d(0px, 0px, 0px); transition: all; width: 1679px;">
                             <div class="owl-item active" style="width: 315.75px; margin-right: 20px;">
                                 <div class="product demo21">
-                                    <figure class="product-media">
+                                    <figure class="product-media" style="background-color: white;">
                                         <span class="product-label label-new">New</span>
                                         <a href="">
-                                            <img src="/assets/upload/3.jpg" alt="Product image" class="product-image">
+                                            <img src="/assets/upload/3.jpg" alt="Product image" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
                                         </a>
 
                                     </figure><!-- End .product-media -->
@@ -184,11 +191,11 @@
                             </div>
                             <div class="owl-item active" style="width: 315.75px; margin-right: 20px;">
                                 <div class="product demo21">
-                                    <figure class="product-media">
+                                    <figure class="product-media" style="background-color: white;">
                                         <span class="product-label label-new">New</span>
                                         <a href="product.html">
                                             <img src="/assets/upload/13.jpg"
-                                                 alt="Product image" class="product-image">
+                                                 alt="Product image" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
                                         </a>
                                         <!-- End .product-countdown -->
                                     </figure><!-- End .product-media -->
@@ -212,10 +219,10 @@
                             </div>
                             <div class="owl-item active" style="width: 315.75px; margin-right: 20px;">
                                 <div class="product demo21">
-                                    <figure class="product-media">
+                                    <figure class="product-media" style="background-color: white;">
                                         <a href="product.html">
                                             <img src="/assets/upload/28.jpg"
-                                                 alt="Product image" class="product-image">
+                                                 alt="Product image" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
                                         </a>
 
                                     </figure><!-- End .product-media -->
@@ -240,10 +247,10 @@
                             </div>
                             <div class="owl-item active" style="width: 315.75px; margin-right: 20px;">
                                 <div class="product demo21">
-                                    <figure class="product-media">
+                                    <figure class="product-media" style="background-color: white;">
                                         <a href="product.html">
                                             <img src="/assets/upload/47.jpg"
-                                                 alt="Product image" class="product-image">
+                                                 alt="Product image" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
                                         </a>
 
                                     </figure><!-- End .product-media -->
@@ -268,10 +275,10 @@
                             </div>
                             <div class="owl-item" style="width: 315.75px; margin-right: 20px;">
                                 <div class="product demo21">
-                                    <figure class="product-media">
+                                    <figure class="product-media" style="background-color: white;">
                                         <a href="product.html">
                                             <img src="/assets/upload/35.jpg"
-                                                 alt="Product image" class="product-image">
+                                                 alt="Product image" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
                                         </a>
                                         <!-- End .product-countdown -->
 
@@ -297,55 +304,6 @@
                     <div class="owl-dots disabled"></div>
                 </div><!-- End .owl-carousel -->
             </div>
-
-            <!--            <div class="heading heading-flex mb-3">-->
-            <!--                <div class="heading-left">-->
-            <!--                    <h2 class="title">Recommendation For You</h2>&lt;!&ndash; End .title &ndash;&gt;-->
-            <!--                </div>&lt;!&ndash; End .heading-left &ndash;&gt;-->
-
-            <!--                <div class="heading-right">-->
-            <!--                    <a href="#" class="title-link">View All Recommendadion <i class="icon-long-arrow-right"></i></a>-->
-            <!--                </div>&lt;!&ndash; End .heading-right &ndash;&gt;-->
-            <!--            </div>&lt;!&ndash; End .heading &ndash;&gt;-->
-
-            <!--      <div class="products">-->
-            <!--        <div class="row justify-content-center">-->
-
-            <!--          <div class="col-6 col-md-4 col-lg-3" th:each="field : ${fieldList}">-->
-            <!--            <div class="product product-2">-->
-            <!--              <a th:href="@{/detail-field/{fieldId}(fieldId=${field.fieldId})}">-->
-            <!--                <img th:src="@{'/assets/upload/' + ${field.fieldImage}}"-->
-            <!--                     alt="Product image"-->
-            <!--                     class="product-image" style="border-radius: 10px;">-->
-            <!--              </a>-->
-
-            <!--              &lt;!&ndash;                                <div class="product-action">&ndash;&gt;-->
-            <!--              &lt;!&ndash;                                    <a href="#" class="btn-product btn-cart"&ndash;&gt;-->
-            <!--              &lt;!&ndash;                                       title="Add to cart"><span>Add to cart</span></a>&ndash;&gt;-->
-            <!--              &lt;!&ndash;                                    <a href="popup/quickView.html" class="btn-product btn-quickview" title="Quick view"><span>quick view</span></a>&ndash;&gt;-->
-            <!--              &lt;!&ndash;                                </div>&lt;!&ndash; End .product-action &ndash;&gt;&ndash;&gt;-->
-
-            <!--              <div class="product-body">-->
-            <!--                <div class="product-cat">-->
-            <!--                  <a href="#" th:text="${field.fieldType.typeName}" style="font-weight: bold;"></a>-->
-            <!--                </div>&lt;!&ndash; End .product-cat &ndash;&gt;-->
-            <!--                <h3 class="product-title"><a th:href="@{/detail-field/{fieldId}(fieldId=${field.fieldId})}"-->
-            <!--                                             th:text="${field.fieldName}"></a></h3>&lt;!&ndash; End .product-title &ndash;&gt;-->
-            <!--                <div class="product-price">-->
-            <!--                  <p class="product-price" style="padding-right: 5px;">Địa chỉ:</p>-->
-            <!--                  <p class="product-price" th:text="${field.address}"></p>-->
-            <!--                </div>-->
-            <!--                <div class="ratings-container">-->
-            <!--                  <div class="ratings">-->
-            <!--                    <div class="ratings-val" style="width: 60%;"></div>&lt;!&ndash; End .ratings-val &ndash;&gt;-->
-            <!--                  </div>&lt;!&ndash; End .ratings &ndash;&gt;-->
-            <!--                  <span class="ratings-text">( 2 Reviews )</span>-->
-            <!--                </div>&lt;!&ndash; End .rating-container &ndash;&gt;-->
-            <!--              </div>&lt;!&ndash; End .product-body &ndash;&gt;-->
-            <!--            </div>&lt;!&ndash; End .product &ndash;&gt;-->
-            <!--          </div>&lt;!&ndash; End .col-sm-6 col-md-4 col-lg-3 &ndash;&gt;-->
-            <!--        </div>&lt;!&ndash; End .row &ndash;&gt;-->
-            <!--      </div>&lt;!&ndash; End .products &ndash;&gt;-->
         </div><!-- End .container -->
     </main><!-- End .main -->
 
