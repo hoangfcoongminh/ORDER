@@ -31,25 +31,6 @@ public class SecurityConfig  {
     private CustomUserDetailsService customUserDetailsService;
 
     @Bean
-    public AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return new AuthenticationSuccessHandler() {
-            @Override
-            public void onAuthenticationSuccess(HttpServletRequest request,
-                                                HttpServletResponse response,
-                                                Authentication authentication) throws IOException {
-                // Kiểm tra vai trò của người dùng và chuyển hướng tương ứng
-                Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-
-                if (authorities.stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-                    response.sendRedirect("/admin");
-                } else {
-                    response.sendRedirect("/");
-                }
-            }
-        };
-    }
-
-    @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .userDetailsService(customUserDetailsService)

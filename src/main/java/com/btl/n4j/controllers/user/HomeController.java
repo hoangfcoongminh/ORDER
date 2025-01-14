@@ -5,13 +5,14 @@ import com.btl.n4j.repository.UserRepository;
 import com.btl.n4j.services.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class HomeController {
     @Autowired
     private Field_TimeSlotService fieldTimeSlotService;
 
-    @GetMapping("/")
+    @GetMapping({"/", "/home"})
     public String index(HttpSession session, Model model) {
 
         User loggedUser = (User) session.getAttribute("loggedInUser");
@@ -98,5 +99,40 @@ public class HomeController {
         model.addAttribute("timeSlotList", timeSlotList);
 
         return "field_detail";
+    }
+
+    @GetMapping("/infor-user/{username}")
+    public String edit(@PathVariable String username, Model model) {
+
+        User user = this.userRepository.findByUsername(username);
+        model.addAttribute("user", user);
+
+        List<FieldType> fieldTypeList = this.fieldTypeService.getAll();
+        model.addAttribute("fieldTypeList", fieldTypeList);
+
+        return "userinfo";
+    }
+
+    @PostMapping("/update-user")
+    public String updateUser(@ModelAttribute("user") User user,
+                             BindingResult result, @RequestParam("newPassword") String newPassword,
+                             RedirectAttributes redirectAttributes) {
+        try {
+            User existingUser = userRepository.findByUsername(user.getUsername());
+            if(newPassword != null && newPassword != ""){
+                existingUser.setPassword(new BCryptPasswordEncoder().encode(newPassword));
+            }
+            existingUser.setFullName(user.getFullName());
+            existingUser.setPhoneNumber(user.getPhoneNumber());
+            existingUser.setAddress(user.getAddress());
+            existingUser.setEmail(user.getEmail());
+
+            userRepository.save(existingUser);
+            redirectAttributes.addFlashAttribute("success", "Cập nhật thành công!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Có lỗi xảy ra khi cập nhật!");
+        }
+
+        return "redirect:/infor-user/" + user.getUsername();
     }
 }

@@ -32,6 +32,7 @@
                                 sec:authentication="principal.fullName"></span>!</p>
                         </a>
                         <div class="dropdown-content">
+                            <a th:href="@{/infor-user/{username}(username=${#authentication.principal.username})}">Tài khoản của tôi</a>
                             <a href="/logout">Đăng xuất</a>
                         </div>
                     </div>
