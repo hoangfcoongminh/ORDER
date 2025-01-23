@@ -28,6 +28,9 @@ public class HomeController {
     @Autowired
     private Field_TimeSlotService fieldTimeSlotService;
 
+        @Autowired
+    private UserRepository userRepository;
+
     @GetMapping({"/", "/home"})
     public String index(HttpSession session, Model model) {
 
